@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import '../index.css';
 import App from '../App';
 import * as serviceWorker from '../serviceWorker';
-import {StateType} from './state'
+import {addPost, StateType, updateNewPostText} from './state'
 
 
-export const rerenderEntireTree = (state: StateType, addPost: (postMessage: string) => void) => {
+export const rerenderEntireTree = (state: StateType) => {
     ReactDOM.render(
         <React.StrictMode>
-            <App addPost={addPost} state={state}/>
+            <App addPost={addPost} state={state} updatePostText={updateNewPostText}/>
         </React.StrictMode>,
         document.getElementById('root')
     );

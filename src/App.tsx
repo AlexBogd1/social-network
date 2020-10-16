@@ -13,13 +13,15 @@ type AppType = {
     state: {
         profilePage: {
             posts: Array<PostType>,
-            dialogs: Array<DialogItemType>
+            newPostText: string
         },
         dialogsPage: {
+            dialogs: Array<DialogItemType>
             messages: Array<MessageType>
         }
     }
     addPost: (postMessage: string) => void
+    updatePostText: (newText: string) => void
 }
 
 
@@ -39,14 +41,15 @@ const App = (props: AppType) => {
 
                     <Route path='/dialogs'
                            render={() => <Dialogs
-                               dialogs={props.state.profilePage.dialogs}
+                               dialogs={props.state.dialogsPage.dialogs}
                                messages={props.state.dialogsPage.messages}
 
                            />}/>
                     <Route path='/profile'
                            render={() => <Profile
-                               posts={props.state.profilePage.posts}
+                               profilePage={props.state.profilePage}
                                addPost={props.addPost}
+                               updatePostText = {props.updatePostText}
                            />}/>
                 </div>
             </div>
