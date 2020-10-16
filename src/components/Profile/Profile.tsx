@@ -11,7 +11,7 @@ type ProfileType = {
         posts: Array<PostType>,
         newPostText: string,
     }
-    addPost: (postMessage: string) => void
+    addPost: () => void
     updatePostText: (newText: string) => void
 }
 

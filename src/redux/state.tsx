@@ -43,19 +43,20 @@ export let state = {
 
 }
 
-export let addPost = (postMessage: string) => {
+export let addPost = () => {
     let newPost: PostType = {
         id: 5,
-        message: postMessage,
+        message: state.profilePage.newPostText,
         likesCount: 0,
     };
     state.profilePage.posts.push(newPost);
-    rerenderEntireTree(state)
+    state.profilePage.newPostText = '';
+    rerenderEntireTree(state);
 }
 
 export let updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText;
-    rerenderEntireTree(state)
+    rerenderEntireTree(state);
 }
 
 export default state

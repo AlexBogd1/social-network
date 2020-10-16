@@ -20,7 +20,7 @@ type AppType = {
             messages: Array<MessageType>
         }
     }
-    addPost: (postMessage: string) => void
+    addPost: () => void
     updatePostText: (newText: string) => void
 }
 
