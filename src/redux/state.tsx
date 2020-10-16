@@ -2,7 +2,7 @@ import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {DialogItemType} from "../components/Dialogs/DialogItem/DialodsItem";
 import {MessageType} from "../components/Dialogs/Message/Message";
 
-let rerenderEntireTree = () => {
+let rerenderEntireTree = (state: StateType) => {
 
 }
 
@@ -54,15 +54,15 @@ export let addPost = () => {
     };
     state.profilePage.posts.push(newPost);
     state.profilePage.newPostText = '';
-    rerenderEntireTree();
+    rerenderEntireTree(state);
 }
 
 export let updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText;
-    rerenderEntireTree();
+    rerenderEntireTree(state);
 }
 
-export const subscribe = (observer: () => void) =>{
+export const subscribe = (observer: (state: StateType) => void) =>{
     rerenderEntireTree = observer;
 }
 
