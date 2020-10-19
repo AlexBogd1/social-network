@@ -11,7 +11,7 @@ import {MessageType} from "./components/Dialogs/Message/Message";
 
 type AppType = {
     state: {
-        profilePage: {
+        profilePage:  {
             posts: Array<PostType>,
             newPostText: string
         },
