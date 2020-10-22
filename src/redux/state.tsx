@@ -2,68 +2,86 @@ import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {DialogItemType} from "../components/Dialogs/DialogItem/DialodsItem";
 import {MessageType} from "../components/Dialogs/Message/Message";
 
-let rerenderEntireTree = (state: StateType) => {
 
+
+export type ProfilePageType = {
+    messageForNewPost: string
+    posts:Array<PostType>
 }
-
+export type DialogsPageType = {
+    messages: Array<MessageType>
+    dialogs: Array<DialogItemType>
+}
 export type StateType = {
-    profilePage: {
-        posts: Array<PostType>,
-        newPostText: string
+    profilePage: ProfilePageType,
+    dialogsPage: DialogsPageType
+}
+export type StoreType = {
+    _state: StateType
+    addPost: () => void
+    getState: () => StateType
+    updateNewPostText: (newText: string) => void
+    _rerenderEntireTree: () => void
+    subscribe: (observer: () => void) => void
+}
+
+const store: StoreType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id: 1, message: 'Hi? how are you', likesCount: 12},
+                {id: 2, message: 'It is my first post', likesCount: 11},
+                {id: 3, message: 'It is my second post', likesCount: 15},
+            ],
+            messageForNewPost: 'Hello from state',
+        },
+        dialogsPage: {
+            dialogs: [
+                {id: 1, name: 'Dimych'},
+                {id: 2, name: 'Andrey'},
+                {id: 3, name: 'Sveta'},
+                {id: 4, name: 'Victor'},
+                {id: 5, name: 'Alex'},
+                {id: 6, name: 'Valera'},
+            ],
+            messages: [
+                {id: 1, message: 'Hi'},
+                {id: 2, message: 'How is your it-kamasutra?'},
+                {id: 3, message: 'Yo'},
+                {id: 4, message: 'Yo'},
+                {id: 5, message: 'Yo'},
+            ],
+        },
+
     },
-    dialogsPage: {
-        messages: Array<MessageType>
-        dialogs: Array<DialogItemType>
+    getState() {
+      return this._state;
+    },
+
+    addPost() {
+        let newPost: PostType = {
+            id: 5,
+            message: this._state.profilePage.messageForNewPost,
+            likesCount: 0,
+        };
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.messageForNewPost = '';
+        this._rerenderEntireTree();
+    },
+
+    updateNewPostText(newText: string){
+        this._state.profilePage.messageForNewPost = newText;
+        this._rerenderEntireTree();
+    },
+    subscribe(observer){
+        this._rerenderEntireTree = observer;
+    },
+    _rerenderEntireTree(){
+            console.log('hello');
     }
-}
 
-export let state = {
-    profilePage: {
-        posts: [
-            {id: 1, message: 'Hi? how are you', likesCount: 12},
-            {id: 2, message: 'It is my first post', likesCount: 11},
-            {id: 3, message: 'It is my second post', likesCount: 15},
-        ],
-        newPostText: 'Hello from state',
-    },
-    dialogsPage: {
-        dialogs: [
-            {id: 1, name: 'Dimych'},
-            {id: 2, name: 'Andrey'},
-            {id: 3, name: 'Sveta'},
-            {id: 4, name: 'Victor'},
-            {id: 5, name: 'Alex'},
-            {id: 6, name: 'Valera'},
-        ],
-        messages: [
-            {id: 1, message: 'Hi'},
-            {id: 2, message: 'How is your it-kamasutra?'},
-            {id: 3, message: 'Yo'},
-            {id: 4, message: 'Yo'},
-            {id: 5, message: 'Yo'},
-        ],
-    },
+
 
 }
 
-export let addPost = () => {
-    let newPost: PostType = {
-        id: 5,
-        message: state.profilePage.newPostText,
-        likesCount: 0,
-    };
-    state.profilePage.posts.push(newPost);
-    state.profilePage.newPostText = '';
-    rerenderEntireTree(state);
-}
-
-export let updateNewPostText = (newText: string) => {
-    state.profilePage.newPostText = newText;
-    rerenderEntireTree(state);
-}
-
-export const subscribe = (observer: (state: StateType) => void) =>{
-    rerenderEntireTree = observer;
-}
-
-export default state
+export default store

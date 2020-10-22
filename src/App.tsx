@@ -5,21 +5,10 @@ import NavBar from './components/NavBar/NavBar';
 import Profile from "./components/Profile/Profile";
 import Dialogs, {DialogsType} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from 'react-router-dom';
-import {PostType} from "./components/Profile/MyPosts/Post/Post";
-import {DialogItemType} from "./components/Dialogs/DialogItem/DialodsItem";
-import {MessageType} from "./components/Dialogs/Message/Message";
+import {StateType} from "./redux/state";
 
 type AppType = {
-    state: {
-        profilePage:  {
-            posts: Array<PostType>,
-            newPostText: string
-        },
-        dialogsPage: {
-            dialogs: Array<DialogItemType>
-            messages: Array<MessageType>
-        }
-    }
+    state: StateType
     addPost: () => void
     updatePostText: (newText: string) => void
 }
