@@ -3,10 +3,9 @@ import {DialogItemType} from "../components/Dialogs/DialogItem/DialodsItem";
 import {MessageType} from "../components/Dialogs/Message/Message";
 
 
-
 export type ProfilePageType = {
     messageForNewPost: string
-    posts:Array<PostType>
+    posts: Array<PostType>
 }
 export type DialogsPageType = {
     messages: Array<MessageType>
@@ -18,23 +17,23 @@ export type StateType = {
 }
 export type StoreType = {
     _state: StateType
-    addPost: () => void
+    // addPost: () => void
     getState: () => StateType
-    updateNewPostText: (newText: string) => void
+    // updateNewPostText: (newText: string) => void
     _rerenderEntireTree: () => void
     subscribe: (observer: () => void) => void
     dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
 }
-
 export type AddPostActionType = {
     type: "ADD-POST"
 }
-
 export type UpdateNewPostActionType = {
     type: "UPDATE-NEW-POST-TEXT"
     newText: string
 }
 
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const store: StoreType = {
     _state: {
         profilePage: {
@@ -65,31 +64,18 @@ const store: StoreType = {
 
     },
     getState() {
-      return this._state;
+        return this._state;
     },
 
-    addPost() {
-        let newPost: PostType = {
-            id: 5,
-            message: this._state.profilePage.messageForNewPost,
-            likesCount: 0,
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.messageForNewPost = '';
-        this._rerenderEntireTree();
-    },
-
-    updateNewPostText(newText: string){
-
-    },
-    subscribe(observer){
+    subscribe(observer) {
         this._rerenderEntireTree = observer;
     },
-    _rerenderEntireTree(){
-            console.log('hello');
+    _rerenderEntireTree() {
+        console.log('hello');
     },
+
     dispatch(action) { // { type: 'ADD-POST' }
-        if(action.type === "ADD-POST") {
+        if (action.type === ADD_POST) {
             let newPost: PostType = {
                 id: 5,
                 message: this._state.profilePage.messageForNewPost,
@@ -98,14 +84,25 @@ const store: StoreType = {
             this._state.profilePage.posts.push(newPost);
             this._state.profilePage.messageForNewPost = "";
             this._rerenderEntireTree();
-        } else if(action.type === "UPDATE-NEW-POST-TEXT") {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.messageForNewPost = action.newText;
             this._rerenderEntireTree();
         }
     }
 
+}
 
+export const addPostActionCreator = (): AddPostActionType => {
+    return {
+        type: ADD_POST
+    }
+}
 
+export const updateNewPostTextActionCreator = (text: string): UpdateNewPostActionType => {
+    return {
+        type: UPDATE_NEW_POST_TEXT,
+        newText: text,
+    }
 }
 
 export default store
