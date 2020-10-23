@@ -96,7 +96,7 @@ const store: StoreType = {
                 likesCount: 0,
             };
             this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.messageForNewPost = '';
+            this._state.profilePage.messageForNewPost = "";
             this._rerenderEntireTree();
         } else if (action.type === "UPDATE-NEW-POST-TEXT") {
             this._state.profilePage.messageForNewPost = action.newText;
