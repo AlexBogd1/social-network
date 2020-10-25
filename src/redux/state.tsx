@@ -23,7 +23,9 @@ export type StoreType = {
     // updateNewPostText: (newText: string) => void
     _rerenderEntireTree: () => void
     subscribe: (observer: () => void) => void
-    dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
+    dispatch: (action:
+                   AddPostActionType | UpdateNewPostActionType|
+                   UpdateNewMessageBodyType|SendMessageActionType) => void
 }
 export type AddPostActionType = {
     type: "ADD-POST"
@@ -32,10 +34,18 @@ export type UpdateNewPostActionType = {
     type: "UPDATE-NEW-POST-TEXT"
     newText: string
 }
+export type UpdateNewMessageBodyType = {
+    type: 'UPDATE_NEW_MESSAGE_BODY'
+    body: string
+}
+export type SendMessageActionType = {
+    type: 'SEND_MESSAGE'
+}
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE_NEW_MESSAGE_BODY";
+const SEND_MESSAGE = 'SEND_MESSAGE';
 
 const store: StoreType = {
     _state: {
@@ -94,6 +104,11 @@ const store: StoreType = {
         } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
             this._state.dialogsPage.newMessageBody = action.body;
             this._rerenderEntireTree();
+        }else if (action.type === SEND_MESSAGE) {
+            let body = this._state.dialogsPage.newMessageBody;
+            this._state.dialogsPage.newMessageBody = '';
+            this._state.dialogsPage.messages.push({id: 6, message: body});
+            this._rerenderEntireTree();
         }
     }
 
@@ -109,6 +124,19 @@ export const updateNewPostTextActionCreator = (text: string): UpdateNewPostActio
     return {
         type: UPDATE_NEW_POST_TEXT,
         newText: text,
+    }
+}
+
+export const sendMessageCreator = (): SendMessageActionType => {
+    return {
+        type: SEND_MESSAGE,
+    }
+}
+
+export const updateNewMessageBodyCreator = (text: string): UpdateNewMessageBodyType => {
+    return {
+        type: UPDATE_NEW_MESSAGE_BODY,
+        body: text,
     }
 }
 
