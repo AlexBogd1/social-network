@@ -133,10 +133,10 @@ export const sendMessageCreator = (): SendMessageActionType => {
     }
 }
 
-export const updateNewMessageBodyCreator = (text: string): UpdateNewMessageBodyType => {
+export const updateNewMessageBodyCreator = (body: string): UpdateNewMessageBodyType => {
     return {
         type: UPDATE_NEW_MESSAGE_BODY,
-        body: text,
+        body: body,
     }
 }
 

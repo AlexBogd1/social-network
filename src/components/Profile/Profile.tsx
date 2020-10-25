@@ -3,12 +3,20 @@ import style from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {PostType} from "./MyPosts/Post/Post";
-import {AddPostActionType, ProfilePageType, UpdateNewPostActionType} from "../../redux/state";
+import {
+    AddPostActionType,
+    ProfilePageType,
+    SendMessageActionType,
+    UpdateNewMessageBodyType,
+    UpdateNewPostActionType
+} from "../../redux/state";
 
 
 type ProfileType = {
     profilePage:  ProfilePageType
-    dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
+    dispatch: (action:
+                   AddPostActionType | UpdateNewPostActionType|
+                   UpdateNewMessageBodyType|SendMessageActionType) => void
 }
 
 

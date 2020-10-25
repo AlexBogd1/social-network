@@ -3,13 +3,21 @@ import './App.css';
 import Header from "./components/Header/Header";
 import NavBar from './components/NavBar/NavBar';
 import Profile from "./components/Profile/Profile";
-import Dialogs, {DialogsType} from "./components/Dialogs/Dialogs";
+import Dialogs, {} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from 'react-router-dom';
-import {StateType, AddPostActionType, UpdateNewPostActionType} from "./redux/state";
+import {
+    StateType,
+    AddPostActionType,
+    UpdateNewPostActionType,
+    SendMessageActionType,
+    UpdateNewMessageBodyType
+} from "./redux/state";
 
 type AppType = {
     state: StateType
-    dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
+    dispatch: (action:
+                   AddPostActionType | UpdateNewPostActionType|
+                   UpdateNewMessageBodyType|SendMessageActionType) => void
 }
 
 
@@ -29,8 +37,9 @@ const App = (props: AppType) => {
 
                     <Route path='/dialogs'
                            render={() => <Dialogs
-                               dialogs={props.state.dialogsPage.dialogs}
-                               messages={props.state.dialogsPage.messages}
+                           dialogPage = {props.state.dialogsPage}
+                           dispatch={props.dispatch}
+
 
                            />}/>
                     <Route path='/profile'
