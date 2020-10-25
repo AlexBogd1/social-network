@@ -10,9 +10,10 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     messages: Array<MessageType>
     dialogs: Array<DialogItemType>
+    newMessageBody: string
 }
 export type StateType = {
-    profilePage: ProfilePageType,
+    profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 }
 export type StoreType = {
@@ -34,6 +35,8 @@ export type UpdateNewPostActionType = {
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const UPDATE_NEW_MESSAGE_BODY = "UPDATE_NEW_MESSAGE_BODY";
+
 const store: StoreType = {
     _state: {
         profilePage: {
@@ -60,6 +63,7 @@ const store: StoreType = {
                 {id: 4, message: 'Yo'},
                 {id: 5, message: 'Yo'},
             ],
+            newMessageBody: '',
         },
 
     },
@@ -86,6 +90,9 @@ const store: StoreType = {
             this._rerenderEntireTree();
         } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.messageForNewPost = action.newText;
+            this._rerenderEntireTree();
+        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+            this._state.dialogsPage.newMessageBody = action.body;
             this._rerenderEntireTree();
         }
     }
