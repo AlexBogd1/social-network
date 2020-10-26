@@ -1,12 +1,13 @@
 import React, {useRef} from "react";
 import style from './MyPosts.module.css';
 import Post, {PostType} from "./Post/Post";
+
 import {
     addPostActionCreator,
     AddPostActionType,
     UpdateNewPostActionType,
     updateNewPostTextActionCreator
-} from "../../../redux/state";
+} from "../../../redux/profile-reducer";
 
 
 type MyPostsType = {

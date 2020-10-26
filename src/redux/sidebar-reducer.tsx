@@ -1,12 +1,6 @@
-import {
-    AddPostActionType,
-    ProfilePageType,
-    SendMessageActionType,
-    UpdateNewMessageBodyType,
-    UpdateNewPostActionType
-} from "./state";
-
-
+import {AddPostActionType, UpdateNewPostActionType} from "./profile-reducer";
+import {ProfilePageType} from "./state";
+import {UpdateNewMessageBodyType, SendMessageActionType} from "./dialogs-reducer";
 
 
 const sidebarReducer =
@@ -19,3 +13,5 @@ const sidebarReducer =
 
         return state;
     }
+
+    export default sidebarReducer;

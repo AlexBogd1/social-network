@@ -2,14 +2,15 @@ import React, {ChangeEvent} from "react";
 import style from './Dialogs.module.css'
 import DialogItem, {DialogItemType} from "./DialogItem/DialodsItem";
 import Message, {MessageType} from "./Message/Message";
+import {DialogsPageType} from "../../redux/state";
+import {AddPostActionType, UpdateNewPostActionType} from "../../redux/profile-reducer";
 import {
-    AddPostActionType,
-    DialogsPageType, SendMessageActionType,
+    SendMessageActionType,
     sendMessageCreator,
-    StoreType,
     updateNewMessageBodyCreator,
-    UpdateNewMessageBodyType, UpdateNewPostActionType
-} from "../../redux/state";
+    UpdateNewMessageBodyType
+} from "../../redux/dialogs-reducer";
+
 
 
 type DialogsType = {

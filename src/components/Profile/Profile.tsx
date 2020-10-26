@@ -3,13 +3,10 @@ import style from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {PostType} from "./MyPosts/Post/Post";
-import {
-    AddPostActionType,
-    ProfilePageType,
-    SendMessageActionType,
-    UpdateNewMessageBodyType,
-    UpdateNewPostActionType
-} from "../../redux/state";
+import {ProfilePageType} from "../../redux/state";
+import {AddPostActionType, UpdateNewPostActionType} from "../../redux/profile-reducer";
+import {SendMessageActionType, UpdateNewMessageBodyType} from "../../redux/dialogs-reducer";
+
 
 
 type ProfileType = {

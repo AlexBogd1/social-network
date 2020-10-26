@@ -5,13 +5,10 @@ import NavBar from './components/NavBar/NavBar';
 import Profile from "./components/Profile/Profile";
 import Dialogs, {} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from 'react-router-dom';
-import {
-    StateType,
-    AddPostActionType,
-    UpdateNewPostActionType,
-    SendMessageActionType,
-    UpdateNewMessageBodyType
-} from "./redux/state";
+import {StateType} from "./redux/state";
+import {AddPostActionType, UpdateNewPostActionType} from "./redux/profile-reducer";
+import {SendMessageActionType, UpdateNewMessageBodyType} from "./redux/dialogs-reducer";
+
 
 type AppType = {
     state: StateType
