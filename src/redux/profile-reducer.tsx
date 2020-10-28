@@ -27,8 +27,18 @@ export const updateNewPostTextActionCreator = (text: string): UpdateNewPostActio
     }
 }
 
+
+let initialState: ProfilePageType =  {
+    posts: [
+        {id: 1, message: 'Hi? how are you', likesCount: 12},
+        {id: 2, message: 'It is my first post', likesCount: 11},
+        {id: 3, message: 'It is my second post', likesCount: 15},
+    ],
+    messageForNewPost: 'Hello from state',
+}
+
 const profileReducer =
-    (state: ProfilePageType,
+    (state = initialState,
      action: AddPostActionType
          | UpdateNewPostActionType
          | UpdateNewMessageBodyType
