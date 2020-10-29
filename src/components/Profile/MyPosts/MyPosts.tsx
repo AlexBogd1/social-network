@@ -2,25 +2,14 @@ import React, {useRef} from "react";
 import style from './MyPosts.module.css';
 import Post, {PostType} from "./Post/Post";
 
-import {
-    addPostActionCreator,
-    AddPostActionType,
-    UpdateNewPostActionType,
-    updateNewPostTextActionCreator
-} from "../../../redux/profile-reducer";
-
-
 type MyPostsType = {
     posts: Array<PostType>
     newPostText: string
-    dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
+    addPost: () => void
+    onChangeText: (text: string) => void
 }
 
-
-
-
 const MyPosts = (props: MyPostsType) => {
-
 
     let postsElements =
         props.posts.map(p => {
@@ -30,13 +19,13 @@ const MyPosts = (props: MyPostsType) => {
     const newPostElement = useRef<HTMLTextAreaElement>(null)
 
     let addPost = () => {
-        props.dispatch(addPostActionCreator());
+        props.addPost();
     }
 
     const onChangeText = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value;
-            props.dispatch(updateNewPostTextActionCreator(text));
+            props.onChangeText(text);
         }
     }
 

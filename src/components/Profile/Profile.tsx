@@ -6,7 +6,7 @@ import {PostType} from "./MyPosts/Post/Post";
 import {ProfilePageType} from "../../redux/state";
 import {AddPostActionType, UpdateNewPostActionType} from "../../redux/profile-reducer";
 import {SendMessageActionType, UpdateNewMessageBodyType} from "../../redux/dialogs-reducer";
-
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 
 type ProfileType = {
@@ -16,14 +16,12 @@ type ProfileType = {
                    UpdateNewMessageBodyType|SendMessageActionType) => void
 }
 
-
 const Profile = (props: ProfileType) => {
-
 
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts posts={props.profilePage.posts}
+            <MyPostsContainer posts={props.profilePage.posts}
                      newPostText={props.profilePage.messageForNewPost}
                      dispatch ={props.dispatch}/>
         </div>
