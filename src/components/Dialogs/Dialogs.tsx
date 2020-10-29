@@ -15,9 +15,8 @@ import {
 
 type DialogsType = {
     dialogPage: DialogsPageType
-    dispatch: (action:
-                   AddPostActionType | UpdateNewPostActionType|
-                   UpdateNewMessageBodyType|SendMessageActionType) => void
+    onSendMessageClick: () => void
+    onNewMessageChange: (body: string) => void
 }
 
 const Dialogs = (props: DialogsType) => {
@@ -33,11 +32,11 @@ const Dialogs = (props: DialogsType) => {
     let newMessageBody = props.dialogPage.newMessageBody;
 
     let onSendMessageClick = () => {
-        props.dispatch(sendMessageCreator())
+        props.onSendMessageClick()
     }
-    let onNewMessageChande = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
        let body = e.target.value;
-       props.dispatch(updateNewMessageBodyCreator(body))
+       props.onNewMessageChange(body)
     }
 
     return (
@@ -50,7 +49,7 @@ const Dialogs = (props: DialogsType) => {
                 <div>
                     <div><textarea
                         value={newMessageBody}
-                        onChange={onNewMessageChande}
+                        onChange={onNewMessageChange}
                         placeholder='Enter your message'>
 
                     </textarea></div>

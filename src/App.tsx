@@ -8,6 +8,7 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {StateType} from "./redux/state";
 import {AddPostActionType, UpdateNewPostActionType} from "./redux/profile-reducer";
 import {SendMessageActionType, UpdateNewMessageBodyType} from "./redux/dialogs-reducer";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
 type AppType = {
@@ -33,7 +34,7 @@ const App = (props: AppType) => {
                     {/*<Route path='/settings' component={Settings}/>*/}
 
                     <Route path='/dialogs'
-                           render={() => <Dialogs
+                           render={() => <DialogsContainer
                            dialogPage = {props.state.dialogsPage}
                            dispatch={props.dispatch}
 
