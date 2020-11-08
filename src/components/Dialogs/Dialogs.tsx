@@ -13,13 +13,14 @@ import {
 
 
 
-type DialogsType = {
+export type DialogsType = {
     dialogPage: DialogsPageType
     onSendMessageClick: () => void
     onNewMessageChange: (body: string) => void
 }
 
 const Dialogs = (props: DialogsType) => {
+    console.log(props);
 
     let dialogsElements = props.dialogPage.dialogs
         .map(d => {

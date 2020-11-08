@@ -9,27 +9,27 @@ export type ProfilePageType = {
     messageForNewPost: string
     posts: Array<PostType>
 }
+
 export type DialogsPageType = {
     messages: Array<MessageType>
     dialogs: Array<DialogItemType>
     newMessageBody: string
 }
+
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 }
+
 export type StoreType = {
     _state: StateType
-    // addPost: () => void
     getState: () => StateType
-    // updateNewPostText: (newText: string) => void
     _rerenderEntireTree: () => void
     subscribe: (observer: () => void) => void
     dispatch: (action:
                    AddPostActionType | UpdateNewPostActionType |
                    UpdateNewMessageBodyType | SendMessageActionType) => void
 }
-
 
 const store: StoreType = {
     _state: {
@@ -59,8 +59,6 @@ const store: StoreType = {
             ],
             newMessageBody: '',
         },
-
-
     },
     getState() {
         return this._state;
