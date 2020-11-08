@@ -11,7 +11,6 @@ import {connect} from "react-redux";
 import {ProfilePageType} from "../../../redux/state";
 
 
-
 type MyPostsType = {
     profilePage:  ProfilePageType
     dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
