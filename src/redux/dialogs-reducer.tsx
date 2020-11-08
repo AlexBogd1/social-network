@@ -51,13 +51,19 @@ const dialogsReducer =
      action: AddPostActionType | UpdateNewPostActionType | UpdateNewMessageBodyType | SendMessageActionType) => {
         switch (action.type) {
             case UPDATE_NEW_MESSAGE_BODY:
-                state.newMessageBody = action.body;
-                return state;
+                let stateCopy = {...state};
+                stateCopy.dialogs = [...state.dialogs];
+                stateCopy.messages = [...state.messages];
+                stateCopy.newMessageBody = action.body;
+                return stateCopy;
             case SEND_MESSAGE:
                 let body = state.newMessageBody;
                 state.newMessageBody = '';
-                state.messages.push({id: 6, message: body});
-                return state
+                let stateCop = {...state};
+                stateCop.dialogs = [...state.dialogs];
+                stateCop.messages = [...state.messages];
+                stateCop.messages.push({id: 6, message: body});
+                return stateCop
             default:
                 return state
         }

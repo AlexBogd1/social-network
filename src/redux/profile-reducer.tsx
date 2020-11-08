@@ -6,11 +6,11 @@ import {SendMessageActionType, UpdateNewMessageBodyType} from "./dialogs-reducer
 export type AddPostActionType = {
     type: "ADD-POST"
 }
+
 export type UpdateNewPostActionType = {
     type: "UPDATE-NEW-POST-TEXT"
     newText: string
 }
-
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
@@ -51,12 +51,16 @@ const profileReducer =
                     message: state.messageForNewPost,
                     likesCount: 0,
                 };
-                state.posts.push(newPost);
-                state.messageForNewPost = "";
-                return state;
+                let stateCopy = {...state};
+                stateCopy.posts = [...state.posts]
+                stateCopy.posts.push(newPost);
+                stateCopy.messageForNewPost = "";
+                return stateCopy;
             case UPDATE_NEW_POST_TEXT:
-                state.messageForNewPost = action.newText;
-                return state
+                let stateCop = {...state};
+                stateCop.posts = [...state.posts]
+                stateCop.messageForNewPost = action.newText;
+                return stateCop
             default:
                 return state
         }

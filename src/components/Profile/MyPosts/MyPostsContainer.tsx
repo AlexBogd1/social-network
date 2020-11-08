@@ -10,7 +10,6 @@ import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {ProfilePageType} from "../../../redux/state";
 
-
 type MyPostsType = {
     profilePage:  ProfilePageType
     dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
@@ -20,7 +19,6 @@ const mapStateToProps = (store: MyPostsType) => {
     return {
         posts: store.profilePage.posts,
         messageForNewPost: store.profilePage.messageForNewPost
-
     }
 }
 
@@ -28,7 +26,6 @@ const mapDispatchToProps = (dispatch: (action:  AddPostActionType | UpdateNewPos
     return {
         addPost: () => dispatch(addPostActionCreator()),
         onChangeText: (text: string) => dispatch(updateNewPostTextActionCreator(text))
-
     }
 }
 
