@@ -51,16 +51,18 @@ const profileReducer =
                     message: state.messageForNewPost,
                     likesCount: 0,
                 };
-                let stateCopy = {...state};
-                stateCopy.posts = [...state.posts]
-                stateCopy.posts.push(newPost);
-                stateCopy.messageForNewPost = "";
-                return stateCopy;
+
+                return {
+                    ...state,
+                    posts: [...state.posts,newPost],
+                    messageForNewPost: "",
+                };
+
             case UPDATE_NEW_POST_TEXT:
-                let stateCop = {...state};
-                stateCop.posts = [...state.posts]
-                stateCop.messageForNewPost = action.newText;
-                return stateCop
+                return {
+                    ...state,
+                    messageForNewPost: action.newText,
+                };
             default:
                 return state
         }
