@@ -4,24 +4,16 @@ import {AddPostActionType, UpdateNewPostActionType} from "../../redux/profile-re
 import {SendMessageActionType, sendMessageCreator, updateNewMessageBodyCreator, UpdateNewMessageBodyType} from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import Dialogs from "./Dialogs";
+import {ReduxStoreType} from "../../redux/redux-store";
 
-type DialogsType = {
-    dialogPage: DialogsPageType
-    dispatch: (action:
-                   AddPostActionType | UpdateNewPostActionType |
-                   UpdateNewMessageBodyType | SendMessageActionType) => void
-}
+const mapStateToProps = (store: ReduxStoreType) =>{ return { dialogPage: store.dialogPage }}
 
 
-const mapStateToProps = (store: DialogsType) =>{ return { dialogPage: store.dialogPage }}
-
-
-const mapDispatchToProps = (dispatch: (action: AddPostActionType | UpdateNewPostActionType |UpdateNewMessageBodyType | SendMessageActionType) => void) => {
+const mapDispatchToProps = (dispatch: (action: UpdateNewMessageBodyType | SendMessageActionType) => void) => {
     return {
         onSendMessageClick: () => dispatch(sendMessageCreator()),
         onNewMessageChange: (body: string) => dispatch(updateNewMessageBodyCreator(body)),
     }
-
 
 }
 

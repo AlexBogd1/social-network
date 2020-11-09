@@ -9,13 +9,14 @@ import {
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {ProfilePageType} from "../../../redux/state";
+import {ReduxStoreType} from "../../../redux/redux-store";
 
-type MyPostsType = {
+type MyPostsContainerType = {
     profilePage:  ProfilePageType
     dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
 }
 
-const mapStateToProps = (store: MyPostsType) => {
+const mapStateToProps = (store: ReduxStoreType) => {
     return {
         posts: store.profilePage.posts,
         messageForNewPost: store.profilePage.messageForNewPost

@@ -8,4 +8,6 @@ let reducers = combineReducers({
     dialogPage: dialogsReducer,
 })
 
+export type ReduxStoreType = ReturnType<typeof reducers>
+
 export let store = createStore(reducers);
