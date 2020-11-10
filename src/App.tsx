@@ -11,6 +11,7 @@ import {SendMessageActionType, UpdateNewMessageBodyType} from "./redux/dialogs-r
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import {store} from "./redux/redux-store";
 import Users from "./components/Users/Users";
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 
@@ -32,7 +33,7 @@ const App = () => {
                     <Route path='/profile'
                            render={() => <Profile/>}/>
                     <Route path='/users'
-                           render={() => <Users/>}/>
+                           render={() => <UsersContainer/>}/>
                 </div>
             </div>
         </BrowserRouter>
