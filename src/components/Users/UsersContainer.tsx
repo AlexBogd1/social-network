@@ -33,4 +33,4 @@ const mapDispatchToProps = (dispatch: (action: FollowActionType | UnfollowAction
 }
 
 
-export default connect(mapStateToProps,)(Users);
+export default connect(mapStateToProps,mapDispatchToProps)(Users);
