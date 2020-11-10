@@ -6,7 +6,6 @@ import {SendMessageActionType, UpdateNewMessageBodyType} from "./dialogs-reducer
 export type AddPostActionType = {
     type: "ADD-POST"
 }
-
 export type UpdateNewPostActionType = {
     type: "UPDATE-NEW-POST-TEXT"
     newText: string

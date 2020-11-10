@@ -10,18 +10,13 @@ import {AddPostActionType, UpdateNewPostActionType} from "./redux/profile-reduce
 import {SendMessageActionType, UpdateNewMessageBodyType} from "./redux/dialogs-reducer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import {store} from "./redux/redux-store";
+import Users from "./components/Users/Users";
 
 
-type AppType = {
-    // state: StateType
-    // dispatch: (action:
-    //                AddPostActionType | UpdateNewPostActionType|
-    //                UpdateNewMessageBodyType|SendMessageActionType) => void
-}
 
 
-const App = (props: AppType) => {
-    console.log(store.getState())
+const App = () => {
+
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -35,10 +30,9 @@ const App = (props: AppType) => {
                     <Route path='/dialogs'
                            render={() => <DialogsContainer/>}/>
                     <Route path='/profile'
-                           render={() => <Profile
-                               // profilePage={props.state.profilePage}
-                               // dispatch={props.dispatch}
-                           />}/>
+                           render={() => <Profile/>}/>
+                    <Route path='/users'
+                           render={() => <Users/>}/>
                 </div>
             </div>
         </BrowserRouter>
