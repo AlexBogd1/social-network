@@ -1,15 +1,48 @@
 import React from 'react';
 import styles from './Users.module.css'
-import {UsersPageType} from "../../redux/users-reducer";
+import {setUsersAC, UsersPageType, UsersType} from "../../redux/users-reducer";
+import axios from 'axios'
 
-type UsersType = {
+type UsersForPageType = {
     users: UsersPageType
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    setUsers: (users: UsersPageType) => void
+    setUsers: (users: Array<UsersType>) => void
 }
 
-const Users = (props: UsersType) => {
+const Users = (props: UsersForPageType) => {
+
+if(props.users.users.length === 0) {
+    props.setUsers([ {
+        id: 1,
+        photoUrl: 'https://daks2k3a4ib2z.cloudfront.net/56cf5dcdd3b4fc4579d08bef/56cf5dced3b4fc4579d08bf8_BomberMario-icon-300x300.jpg',
+        fallowed: true,
+        fullName: 'Dmitry',
+        status: 'I am a boss',
+        location: {city: 'Minsk', country: 'Belarus'}
+    },
+        {
+            id: 2,
+            photoUrl: 'https://daks2k3a4ib2z.cloudfront.net/56cf5dcdd3b4fc4579d08bef/56cf5dced3b4fc4579d08bf8_BomberMario-icon-300x300.jpg',
+            fallowed: false,
+            fullName: 'Alex',
+            status: 'I am a boss',
+            location: {city: 'Moscow', country: 'Russia'}
+        },
+        {
+            id: 3,
+            photoUrl: 'https://daks2k3a4ib2z.cloudfront.net/56cf5dcdd3b4fc4579d08bef/56cf5dced3b4fc4579d08bf8_BomberMario-icon-300x300.jpg',
+            fallowed: true,
+            fullName: 'Andrew',
+            status: 'I am a boss',
+            location: {city: 'Kiev', country: 'Ukraine'}
+        },])
+}
+
+    // axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+    //     props.setUsers(response.data.items);
+    // })
+
     return (
         <div>
             {

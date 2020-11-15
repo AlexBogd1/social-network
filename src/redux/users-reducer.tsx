@@ -12,7 +12,7 @@ export type UnfollowActionType = {
 }
 export type SetUsersActionType = {
     type: "SET_USERS"
-    users: UsersPageType
+    users: Array<UsersType>
 }
 
 
@@ -28,7 +28,7 @@ export const unfollowAC = (userId: number): UnfollowActionType => {
         userId
     }
 }
-export const setUsersAC = (users: UsersPageType): SetUsersActionType => {
+export const setUsersAC = (users: Array<UsersType>): SetUsersActionType => {
     return {
         type: SET_USERS,
         users
@@ -52,32 +52,7 @@ type LocationType = {
 }
 
 let initialState: UsersPageType = {
-    users: [
-        {
-            id: 1,
-            photoUrl: 'https://daks2k3a4ib2z.cloudfront.net/56cf5dcdd3b4fc4579d08bef/56cf5dced3b4fc4579d08bf8_BomberMario-icon-300x300.jpg',
-            fallowed: true,
-            fullName: 'Dmitry',
-            status: 'I am a boss',
-            location: {city: 'Minsk', country: 'Belarus'}
-        },
-        {
-            id: 2,
-            photoUrl: 'https://daks2k3a4ib2z.cloudfront.net/56cf5dcdd3b4fc4579d08bef/56cf5dced3b4fc4579d08bf8_BomberMario-icon-300x300.jpg',
-            fallowed: false,
-            fullName: 'Alex',
-            status: 'I am a boss',
-            location: {city: 'Moscow', country: 'Russia'}
-        },
-        {
-            id: 3,
-            photoUrl: 'https://daks2k3a4ib2z.cloudfront.net/56cf5dcdd3b4fc4579d08bef/56cf5dced3b4fc4579d08bf8_BomberMario-icon-300x300.jpg',
-            fallowed: true,
-            fullName: 'Andrew',
-            status: 'I am a boss',
-            location: {city: 'Kiev', country: 'Ukraine'}
-        },
-    ],
+    users: [ ],
 }
 
 const usersReducer =
@@ -106,7 +81,7 @@ const usersReducer =
                 }
                 break
             case SET_USERS:
-                return {...state, users: [...state.users, ...action.users.users]}
+                return {...state, users: [...state.users, ...action.users]}
             default:
                 return state
         }

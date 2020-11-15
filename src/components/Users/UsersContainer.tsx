@@ -8,12 +8,9 @@ import {
     setUsersAC,
     SetUsersActionType,
     unfollowAC,
-    UnfollowActionType, UsersPageType
+    UnfollowActionType, UsersPageType, UsersType
 } from "../../redux/users-reducer";
 
-type UsersType = {
-
-}
 
 const mapStateToProps = (store: ReduxStoreType ) => {
     return {
@@ -25,7 +22,7 @@ const mapStateToProps = (store: ReduxStoreType ) => {
 const mapDispatchToProps = (dispatch: (action: FollowActionType | UnfollowActionType| SetUsersActionType) => void) => {
     return {
         follow: (userId: number) => dispatch(followAC(userId)),
-        setUsers: (users: UsersPageType) => dispatch(setUsersAC(users)),
+        setUsers: (users: Array<UsersType>) => dispatch(setUsersAC(users)),
         unfollow: (userId: number) => dispatch(unfollowAC(userId)),
 
 
