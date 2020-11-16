@@ -23,31 +23,32 @@ export type UsersFromApiType = {
     followed: boolean
 }
 
-const Users = (props: UsersForPageType) => {
 
-    const getUsers = () => {
-        if (props.users.users.length === 0) {
+class Users extends React.Component<UsersForPageType> {
+
+    getUsers = () => {
+        if (this.props.users.users.length === 0) {
             axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
                 // debugger
-                props.setUsers(response.data.items);
+                this.props.setUsers(response.data.items);
             })
         }
     }
 
 
-    return (
-        <div>
-            <button onClick={getUsers}>Get Users</button>
+    render () {
+        return (<div>
+            <button onClick={this.getUsers}>Get Users</button>
             {
-                props.users.users.map(u => <div key={u.id}>
+                this.props.users.users.map(u => <div key={u.id}>
                     <span>
                         <div>
                             <img className={styles.usersPhoto} src={u.photos.small ? u.photos.small : userPhoto}/>
                         </div>
                         <div>
                             {u.followed
-                                ? <button onClick={() => props.unfollow(u.id)}>Unfollow</button>
-                                : <button onClick={() => props.follow(u.id)}>Follow</button>}
+                                ? <button onClick={() => this.props.unfollow(u.id)}>Unfollow</button>
+                                : <button onClick={() => this.props.follow(u.id)}>Follow</button>}
 
                         </div>
                     </span>
@@ -63,9 +64,10 @@ const Users = (props: UsersForPageType) => {
                     </span>
                 </div>)
             }
-        </div>
-    )
+        </div>)
+    }
 }
+
 
 export default Users;
 
