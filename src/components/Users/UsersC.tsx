@@ -13,6 +13,7 @@ type UsersForPageType = {
     unfollow: (userId: string) => void
     setUsers: (users: Array<UsersFromApiType>) => void
     setCurrentPage: (pageNumber:number) => void
+    setTotalUsersCount: (totalCount: number) => void
 }
 
 type UsersPhotoApiType = {
@@ -34,6 +35,7 @@ class Users extends React.Component<UsersForPageType> {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
             // debugger
             this.props.setUsers(response.data.items);
+            this.props.setTotalUsersCount(response.data.totalCount)
         })
     }
 

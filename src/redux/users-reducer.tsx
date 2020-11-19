@@ -4,6 +4,7 @@ const FOLLOW = 'FOLLOW';
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const SET_TOTAL_COUNT = "SET_TOTAL_COUNT";
 
 export type FollowActionType = {
     type: 'FOLLOW'
@@ -20,6 +21,10 @@ export type SetUsersActionType = {
 export type SetCurrentPageActionType = {
     type: "SET_CURRENT_PAGE"
     pageNumber: number
+}
+export type SetTotalCountActionType = {
+    type: "SET_TOTAL_COUNT"
+    totalUsersCount: number
 }
 
 
@@ -47,6 +52,12 @@ export const setCurrentPageAC = (pageNumber: number): SetCurrentPageActionType =
         pageNumber
     }
 }
+export const setTotalUsersCountAC = (totalUsersCount: number): SetTotalCountActionType => {
+    return {
+        type: SET_TOTAL_COUNT,
+        totalUsersCount
+    }
+}
 
 export type UsersPageType = {
     users: Array<UsersFromApiType>
@@ -57,13 +68,13 @@ export type UsersPageType = {
 
 let initialState: UsersPageType = {
     users: [ ],
-    pageSize: 4,
-    totalUsersCount: 21,
-    currentPage: 1
+    pageSize: 7,
+    totalUsersCount: 0,
+    currentPage: 1,
 }
 
 const usersReducer =
-    (state = initialState, action: FollowActionType | UnfollowActionType| SetUsersActionType| SetCurrentPageActionType) => {
+    (state = initialState, action: FollowActionType | UnfollowActionType| SetUsersActionType| SetCurrentPageActionType|SetTotalCountActionType) => {
         switch (action.type) {
             case FOLLOW:
                 return {
@@ -97,6 +108,11 @@ const usersReducer =
                 ...state,
                 currentPage: action.pageNumber
             }
+            case "SET_TOTAL_COUNT":
+                return {
+                    ...state,
+                    totalUsersCount: action.totalUsersCount
+                }
             default:
                 return state
         }
