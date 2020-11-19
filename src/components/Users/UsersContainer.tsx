@@ -4,7 +4,7 @@ import Users, {UsersFromApiType} from "./UsersC";
 import {ReduxStoreType} from "../../redux/redux-store";
 import {
     followAC,
-    FollowActionType,
+    FollowActionType, setCurrentPageAC, SetCurrentPageActionType,
     setUsersAC,
     SetUsersActionType,
     unfollowAC,
@@ -14,16 +14,20 @@ import {
 
 const mapStateToProps = (store: ReduxStoreType ) => {
     return {
-        users: store.usersPage
+        users: store.usersPage.users,
+        pageSize: store.usersPage.pageSize,
+        totalUsersCount: store.usersPage.totalUsersCount,
+        currentPage: store.usersPage.currentPage
     }
 
 }
 
-const mapDispatchToProps = (dispatch: (action: FollowActionType | UnfollowActionType| SetUsersActionType) => void) => {
+const mapDispatchToProps = (dispatch: (action: FollowActionType | UnfollowActionType| SetUsersActionType | SetCurrentPageActionType) => void) => {
     return {
         follow: (userId: string) => dispatch(followAC(userId)),
         setUsers: (users: Array<UsersFromApiType>) => dispatch(setUsersAC(users)),
         unfollow: (userId: string) => dispatch(unfollowAC(userId)),
+        setCurrentPage: (pageNumber: number) => dispatch(setCurrentPageAC(pageNumber))
 
 
     }

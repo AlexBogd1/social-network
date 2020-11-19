@@ -3,6 +3,7 @@ import {UsersFromApiType} from "../components/Users/Users";
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 
 export type FollowActionType = {
     type: 'FOLLOW'
@@ -15,6 +16,10 @@ export type UnfollowActionType = {
 export type SetUsersActionType = {
     type: "SET_USERS"
     users: Array<UsersFromApiType>
+}
+export type SetCurrentPageActionType = {
+    type: "SET_CURRENT_PAGE"
+    pageNumber: number
 }
 
 
@@ -36,32 +41,31 @@ export const setUsersAC = (users: Array<UsersFromApiType>): SetUsersActionType =
         users
     }
 }
+export const setCurrentPageAC = (pageNumber: number): SetCurrentPageActionType => {
+    return {
+        type: SET_CURRENT_PAGE,
+        pageNumber
+    }
+}
 
 export type UsersPageType = {
     users: Array<UsersFromApiType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
-// export type UsersType = {
-//     id: number
-//     photoUrl: string
-//     fallowed: boolean
-//     fullName: string
-//     status: string
-//     location: LocationType
-// }
-// type LocationType = {
-//     city: string
-//     country: string
-// }
 
 let initialState: UsersPageType = {
     users: [ ],
+    pageSize: 4,
+    totalUsersCount: 21,
+    currentPage: 1
 }
 
 const usersReducer =
-    (state = initialState, action: FollowActionType | UnfollowActionType| SetUsersActionType) => {
+    (state = initialState, action: FollowActionType | UnfollowActionType| SetUsersActionType| SetCurrentPageActionType) => {
         switch (action.type) {
             case FOLLOW:
-                debugger
                 return {
                     ...state,
                     users: state.users.map(u => {
@@ -86,7 +90,13 @@ const usersReducer =
                 }
                 break
             case SET_USERS:
-                return {...state, users: [...state.users, ...action.users]}
+                return {...state, users: [...action.users]}
+
+            case SET_CURRENT_PAGE:
+            return {
+                ...state,
+                currentPage: action.pageNumber
+            }
             default:
                 return state
         }
