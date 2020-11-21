@@ -5,10 +5,13 @@ import axios from 'axios'
 import userPhoto from '../../images/images.png'
 
 type UsersForPageType = {
-    users: UsersPageType
+    users: Array<UsersFromApiType>
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    onPageChanged:(page: number) => void
     follow: (userId: string) => void
     unfollow: (userId: string) => void
-    setUsers: (users: Array<UsersFromApiType>) => void
 }
 
 type UsersPhotoApiType = {
@@ -25,22 +28,28 @@ export type UsersFromApiType = {
 
 const Users = (props: UsersForPageType) => {
 
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    let pages = [];
 
-    const getUsers = () => {
-        if (props.users.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                // debugger
-                props.setUsers(response.data.items);
-            })
-        }
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
     }
 
-
-    return (
+    return (<div>
         <div>
-            <button onClick={getUsers}>Get Users</button>
-            {
-                props.users.users.map(u => <div key={u.id}>
+            {pages.map(p =>
+                <span
+                    key={p}
+                    className={props.currentPage === p ? styles.selectedPage : ''}
+                    onClick = {(e) => {  props.onPageChanged(p); }}
+                >
+                    {p}
+                </span>)}
+        </div>
+
+
+        {
+            props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
                             <img className={styles.usersPhoto} src={u.photos.small ? u.photos.small : userPhoto}/>
@@ -52,7 +61,7 @@ const Users = (props: UsersForPageType) => {
 
                         </div>
                     </span>
-                    <span>
+                <span>
                         <span>
                             <div>{u.name}</div>
                             <div>{u.name}</div>
@@ -62,10 +71,10 @@ const Users = (props: UsersForPageType) => {
                             <div>{'Mins'}</div>
                         </span>
                     </span>
-                </div>)
-            }
-        </div>
-    )
+            </div>)
+        }
+    </div>)
+
 }
 
 export default Users;
