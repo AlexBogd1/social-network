@@ -33,37 +33,37 @@ export type ToggleIsFetchingActionType = {
 }
 
 
-export const followAC = (userId: string): FollowActionType => {
+export const follow = (userId: string): FollowActionType => {
     return {
         type: FOLLOW,
         userId
     }
 }
-export const unfollowAC = (userId: string): UnfollowActionType => {
+export const unfollow = (userId: string): UnfollowActionType => {
     return {
         type: UNFOLLOW,
         userId
     }
 }
-export const setUsersAC = (users: Array<UsersFromApiType>): SetUsersActionType => {
+export const setUsers = (users: Array<UsersFromApiType>): SetUsersActionType => {
     return {
         type: SET_USERS,
         users
     }
 }
-export const setCurrentPageAC = (pageNumber: number): SetCurrentPageActionType => {
+export const setCurrentPage = (pageNumber: number): SetCurrentPageActionType => {
     return {
         type: SET_CURRENT_PAGE,
         pageNumber
     }
 }
-export const setTotalUsersCountAC = (totalUsersCount: number): SetTotalCountActionType => {
+export const setTotalUsersCount = (totalUsersCount: number): SetTotalCountActionType => {
     return {
         type: SET_TOTAL_COUNT,
         totalUsersCount
     }
 }
-export const toggleIsFetchingAC = (isFetching: boolean): ToggleIsFetchingActionType => {
+export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingActionType => {
     return {
         type: TOGGLE_IS_FETCHING,
         isFetching
