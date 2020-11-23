@@ -3,6 +3,7 @@ import styles from './Users.module.css'
 import {UsersPageType} from "../../redux/users-reducer";
 import axios from 'axios'
 import userPhoto from '../../images/images.png'
+import { NavLink } from 'react-router-dom';
 
 type UsersForPageType = {
     users: Array<UsersFromApiType>
@@ -51,9 +52,12 @@ const Users = (props: UsersForPageType) => {
         {
             props.users.map(u => <div key={u.id}>
                     <span>
+                        <NavLink to = {'/profile/' + u.id}>
                         <div>
                             <img className={styles.usersPhoto} src={u.photos.small ? u.photos.small : userPhoto}/>
                         </div>
+                    </NavLink>
+
                         <div>
                             {u.followed
                                 ? <button onClick={() => props.unfollow(u.id)}>Unfollow</button>

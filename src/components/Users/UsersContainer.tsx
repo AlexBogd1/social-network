@@ -3,15 +3,14 @@ import {connect} from 'react-redux';
 import {ReduxStoreType} from "../../redux/redux-store";
 import {
     follow,
-    FollowActionType, setCurrentPage, SetCurrentPageActionType, SetTotalCountActionType, setTotalUsersCount,
+    setCurrentPage,
+    setTotalUsersCount,
     setUsers,
-    SetUsersActionType, toggleIsFetching, ToggleIsFetchingActionType,
-    unfollow,
-    UnfollowActionType
+    toggleIsFetching,
+    unfollow
 } from "../../redux/users-reducer";
 import axios from "axios";
 import Users from "./Users";
-import preLoader from '../../images/Preloader.gif'
 import Preloader from '../common/Preloader';
 
 
@@ -28,9 +27,9 @@ type UsersForPageType = {
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
 }
-type UsersPhotoApiType = {
-    small: string
+export type UsersPhotoApiType = {
     large: string
+    small: string
 }
 export type UsersFromApiType = {
     name: string

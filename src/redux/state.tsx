@@ -3,11 +3,13 @@ import {DialogItemType} from "../components/Dialogs/DialogItem/DialodsItem";
 import {MessageType} from "../components/Dialogs/Message/Message";
 import profileReducer, {AddPostActionType, UpdateNewPostActionType} from "./profile-reducer";
 import dialogsReducer, {SendMessageActionType, UpdateNewMessageBodyType} from "./dialogs-reducer";
+import {UserProfileType} from "../components/Profile/ProfileContainer";
 
 
 export type ProfilePageType = {
     messageForNewPost: string
     posts: Array<PostType>
+    userProfile: UserProfileType | null
 }
 
 export type DialogsPageType = {
@@ -40,6 +42,7 @@ const store: StoreType = {
                 {id: 3, message: 'It is my second post', likesCount: 15},
             ],
             messageForNewPost: 'Hello from state',
+            userProfile: null
         },
         dialogsPage: {
             dialogs: [

@@ -1,13 +1,14 @@
 import React from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {UserProfilePageType} from "./ProfileContainer";
 
 
-const Profile = () => {
+const Profile = (props: UserProfilePageType) => {
 
     return (
         <div>
-            <ProfileInfo/>
+            <ProfileInfo profile = {props.userProfile}/>
             <MyPostsContainer />
         </div>
     )

@@ -1,6 +1,7 @@
 import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {ProfilePageType} from "./state";
 import {SendMessageActionType, UpdateNewMessageBodyType} from "./dialogs-reducer";
+import {UserProfileType} from "../components/Profile/ProfileContainer";
 
 
 export type AddPostActionType = {
@@ -10,9 +11,14 @@ export type UpdateNewPostActionType = {
     type: "UPDATE-NEW-POST-TEXT"
     newText: string
 }
+export type SetUserProfileType = {
+    type: "SET-USER-PROFILE"
+    userProfile: UserProfileType
+}
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const SET_USER_PROFILE = "SET-USER-PROFILE";
 
 export const addPostActionCreator = (): AddPostActionType => {
     return {
@@ -25,6 +31,12 @@ export const updateNewPostTextActionCreator = (text: string): UpdateNewPostActio
         newText: text,
     }
 }
+export const setUserProfile = (userProfile: UserProfileType): SetUserProfileType => {
+    return {
+        type: SET_USER_PROFILE,
+        userProfile
+    }
+}
 
 
 let initialState: ProfilePageType =  {
@@ -34,6 +46,7 @@ let initialState: ProfilePageType =  {
         {id: 3, message: 'It is my second post', likesCount: 15},
     ],
     messageForNewPost: 'Hello from state',
+    userProfile: null
 }
 
 const profileReducer =
@@ -41,7 +54,8 @@ const profileReducer =
      action: AddPostActionType
          | UpdateNewPostActionType
          | UpdateNewMessageBodyType
-         | SendMessageActionType) => {
+         | SendMessageActionType
+         | SetUserProfileType) => {
 
         switch (action.type) {
             case ADD_POST:
@@ -62,6 +76,8 @@ const profileReducer =
                     ...state,
                     messageForNewPost: action.newText,
                 };
+            case "SET-USER-PROFILE":
+                return {...state, userProfile: action.userProfile }
             default:
                 return state
         }
