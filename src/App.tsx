@@ -22,7 +22,7 @@ const App = () => {
                     {/*<Route path='/settings' component={Settings}/>*/}
                     <Route path='/dialogs'
                            render={() => <DialogsContainer/>}/>
-                    <Route path='/profile'
+                    <Route path='/profile/:userID?'
                            render={() => <ProfileContainer/>}/>
                     <Route path='/users'
                            render={() => <UsersContainer/>}/>
