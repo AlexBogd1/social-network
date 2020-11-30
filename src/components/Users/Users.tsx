@@ -1,9 +1,8 @@
 import React from 'react';
 import styles from './Users.module.css'
-import {UsersPageType} from "../../redux/users-reducer";
-import axios from 'axios'
 import userPhoto from '../../images/images.png'
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
+import {usersAPI} from "../../api/api";
 
 type UsersForPageType = {
     users: Array<UsersFromApiType>
@@ -60,8 +59,22 @@ const Users = (props: UsersForPageType) => {
 
                         <div>
                             {u.followed
-                                ? <button onClick={() => props.unfollow(u.id)}>Unfollow</button>
-                                : <button onClick={() => props.follow(u.id)}>Follow</button>}
+                                ? <button onClick={() =>{
+                                    usersAPI.unFollow(u.id)
+                                        .then(data => {
+                                            if(data.resultCode == 0) {
+                                                props.unfollow(u.id)
+                                            }
+                                        })
+                                }
+                                }>Unfollow</button>
+                                : <button onClick={() => {
+                                    usersAPI.follow(u.id).then(data => {
+                                            if(data.resultCode == 0) {
+                                                props.follow(u.id)
+                                            }
+                                    })
+                                }}>Follow</button>}
 
                         </div>
                     </span>
