@@ -6,7 +6,7 @@ import {
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
-    toggleIsFetching,
+    toggleIsFetching, toggleIsFollowingInProgress,
     unfollow
 } from "../../redux/users-reducer";
 import Users from "./Users";
@@ -26,6 +26,7 @@ type UsersForPageType = {
     setCurrentPage: (pageNumber:number) => void
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleIsFollowingInProgress: (isFetching: boolean) => void
 }
 export type UsersPhotoApiType = {
     large: string
@@ -69,6 +70,7 @@ class UsersContainerComponent extends React.Component<UsersForPageType> {
                       pageSize={this.props.pageSize}
                       currentPage={this.props.currentPage}
                       onPageChanged = {this.onPageChanged}
+                      toggleIsFollowingInProgress={this.props.toggleIsFollowingInProgress}
         />}
         </>
     }
@@ -98,4 +100,4 @@ const mapStateToProps = (store: ReduxStoreType ) => {
 
 
 export default connect(mapStateToProps,
-    {follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount,toggleIsFetching})(UsersContainerComponent);
+    {follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount,toggleIsFetching, toggleIsFollowingInProgress})(UsersContainerComponent);
