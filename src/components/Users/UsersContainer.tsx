@@ -20,13 +20,14 @@ type UsersForPageType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: string[]
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     setUsers: (users: Array<UsersFromApiType>) => void
     setCurrentPage: (pageNumber:number) => void
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
-    toggleIsFollowingInProgress: (isFetching: boolean) => void
+    toggleIsFollowingInProgress: (isFetching: boolean, userId: string) => void
 }
 export type UsersPhotoApiType = {
     large: string
@@ -66,6 +67,7 @@ class UsersContainerComponent extends React.Component<UsersForPageType> {
             <Users users={this.props.users}
                       follow={this.props.follow}
                       unfollow={this.props.unfollow}
+                      followingInProgress={this.props.followingInProgress}
                       totalUsersCount={this.props.totalUsersCount}
                       pageSize={this.props.pageSize}
                       currentPage={this.props.currentPage}
@@ -82,7 +84,8 @@ const mapStateToProps = (store: ReduxStoreType ) => {
         pageSize: store.usersPage.pageSize,
         totalUsersCount: store.usersPage.totalUsersCount,
         currentPage: store.usersPage.currentPage,
-        isFetching: store.usersPage.isFetching
+        isFetching: store.usersPage.isFetching,
+        followingInProgress: store.usersPage.followingInProgress
     }
 
 }
