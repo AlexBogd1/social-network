@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 const SET_USER_DATA = 'SET_USER_DATA';
 const UNFOLLOW = "UNFOLLOW";
 
@@ -15,7 +17,15 @@ export const setAuthUserData = (userId: number, email: string, login: string): S
     }
 }
 
-
+export const setAuthenticationUserData = () => (dispatch: (action: SetUserDataActionType) => void) => {
+    usersAPI.auth()
+        .then(data => {
+            if(data.resultCode === 0){
+                let {id, login, email} = data.data
+                setAuthUserData(id, email, login);
+            }
+        })
+}
 
 export type AuthType = {
     userId: number|null,
