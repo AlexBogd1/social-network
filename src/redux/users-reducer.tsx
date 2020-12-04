@@ -1,4 +1,5 @@
 import {UsersFromApiType} from "../components/Users/Users";
+import {usersAPI} from "../api/api";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = "UNFOLLOW";
@@ -83,6 +84,24 @@ export const toggleIsFollowingInProgress = (isFetching: boolean,userId: string):
     }
 }
 
+export const getUsers = (currentPage: number, pageSize: number) => (dispatch:(action:ActionsType)=> void) =>{
+    dispatch(toggleIsFetching(true));
+    usersAPI.getUsers(currentPage, pageSize).then(data => {
+        dispatch(toggleIsFetching(false));
+        dispatch(setUsers(data.items));
+        dispatch(setTotalUsersCount(data.totalCount));
+    })
+}
+
+
+type ActionsType = FollowActionType
+    | UnfollowActionType
+    | SetUsersActionType
+    | SetCurrentPageActionType
+    | SetTotalCountActionType
+    | ToggleIsFetchingActionType
+    | ToggleIsFollowingInProgressActionType
+
 export type UsersPageType = {
     users: Array<UsersFromApiType>
     pageSize: number
@@ -102,13 +121,7 @@ let initialState: UsersPageType = {
 }
 
 const usersReducer =
-    (state = initialState, action: FollowActionType
-        | UnfollowActionType
-        | SetUsersActionType
-        | SetCurrentPageActionType
-        | SetTotalCountActionType
-        | ToggleIsFetchingActionType
-        | ToggleIsFollowingInProgressActionType) => {
+    (state = initialState, action: ActionsType) => {
         switch (action.type) {
             case FOLLOW:
                 return {
