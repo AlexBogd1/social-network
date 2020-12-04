@@ -13,6 +13,10 @@ export const usersAPI = {
             .then(response => response.data)
     },
 
+    setUser(userId: string) {
+        return istance.get('profile/'+ userId).then(response => response.data)
+    },
+
     unFollow(id: string) {
         return  istance.delete(`follow/${id}`)
             .then (response => response.data)

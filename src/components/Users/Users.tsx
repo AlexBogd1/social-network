@@ -13,7 +13,6 @@ type UsersForPageType = {
     onPageChanged:(page: number) => void
     follow: (userId: string) => void
     unfollow: (userId: string) => void
-    toggleIsFollowingInProgress: (isFetching: boolean,userId: string) => void
 }
 
 type UsersPhotoApiType = {
@@ -62,24 +61,11 @@ const Users = (props: UsersForPageType) => {
                         <div>
                             {u.followed
                                 ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() =>{
-                                    props.toggleIsFollowingInProgress(true,u.id)
-                                    usersAPI.unFollow(u.id)
-                                        .then(data => {
-                                            if(data.resultCode == 0) {
-                                                props.unfollow(u.id)
-                                            }
-                                            props.toggleIsFollowingInProgress(false, u.id)
-                                        })
+                                   props.unfollow(u.id);
                                 }
                                 }>Unfollow</button>
                                 : <button disabled={props.followingInProgress.some(id => id == u.id)} onClick={() => {
-                                    props.toggleIsFollowingInProgress(true, u.id)
-                                    usersAPI.follow(u.id).then(data => {
-                                            if(data.resultCode == 0) {
-                                                props.follow(u.id)
-                                            }
-                                        props.toggleIsFollowingInProgress(false, u.id)
-                                    })
+                                    props.follow(u.id)
                                 }}>Follow</button>}
 
                         </div>

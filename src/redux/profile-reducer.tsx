@@ -2,6 +2,7 @@ import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {ProfilePageType} from "./state";
 import {SendMessageActionType, UpdateNewMessageBodyType} from "./dialogs-reducer";
 import {UserProfileType} from "../components/Profile/ProfileContainer";
+import {usersAPI} from "../api/api";
 
 
 export type AddPostActionType = {
@@ -38,6 +39,19 @@ export const setUserProfile = (userProfile: UserProfileType): SetUserProfileType
     }
 }
 
+export const setMyUserProfile = (userID: string)=> (dispatch: (action: ActionsType) => void) => {
+    usersAPI.setUser(userID).then(data => {
+        dispatch(setUserProfile(data));
+    })
+}
+
+
+
+type ActionsType = AddPostActionType
+    | UpdateNewPostActionType
+    | UpdateNewMessageBodyType
+    | SendMessageActionType
+    | SetUserProfileType
 
 let initialState: ProfilePageType =  {
     posts: [
@@ -51,11 +65,7 @@ let initialState: ProfilePageType =  {
 
 const profileReducer =
     (state = initialState,
-     action: AddPostActionType
-         | UpdateNewPostActionType
-         | UpdateNewMessageBodyType
-         | SendMessageActionType
-         | SetUserProfileType) => {
+     action: ActionsType) => {
 
         switch (action.type) {
             case ADD_POST:

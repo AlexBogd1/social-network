@@ -92,7 +92,26 @@ export const getUsers = (currentPage: number, pageSize: number) => (dispatch:(ac
         dispatch(setTotalUsersCount(data.totalCount));
     })
 }
+export const followUser = (userId: string) => (dispatch:(action:ActionsType)=> void) => {
+    dispatch(toggleIsFollowingInProgress(true, userId));
 
+    usersAPI.follow(userId).then(data => {
+        if(data.resultCode == 0) {
+            dispatch(follow(userId))
+        }
+        dispatch(toggleIsFollowingInProgress(false, userId))
+    })
+}
+export const unFollowUser = (userId: string) => (dispatch:(action:ActionsType)=> void) => {
+    dispatch(toggleIsFollowingInProgress(true, userId));
+
+    usersAPI.unFollow(userId).then(data => {
+        if(data.resultCode == 0) {
+            dispatch(unfollow(userId))
+        }
+        dispatch(toggleIsFollowingInProgress(false, userId))
+    })
+}
 
 type ActionsType = FollowActionType
     | UnfollowActionType
