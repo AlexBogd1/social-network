@@ -12,7 +12,7 @@ type UsersForPageType = {
     followingInProgress: string[]
     onPageChanged:(page: number) => void
     follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    unFollow: (userId: string) => void
 }
 
 type UsersPhotoApiType = {
@@ -61,7 +61,7 @@ const Users = (props: UsersForPageType) => {
                         <div>
                             {u.followed
                                 ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() =>{
-                                   props.unfollow(u.id);
+                                   props.unFollow(u.id);
                                 }
                                 }>Unfollow</button>
                                 : <button disabled={props.followingInProgress.some(id => id == u.id)} onClick={() => {

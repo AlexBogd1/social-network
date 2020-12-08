@@ -6,7 +6,12 @@ import {connect} from "react-redux";
 import Dialogs from "./Dialogs";
 import {ReduxStoreType} from "../../redux/redux-store";
 
-const mapStateToProps = (store: ReduxStoreType) =>{ return { dialogPage: store.dialogPage }}
+const mapStateToProps = (store: ReduxStoreType) =>{
+     return { 
+         dialogPage: store.dialogPage,
+         isAuth: store.auth.isAuth 
+        }
+    }
 
 
 const mapDispatchToProps = (dispatch: (action: UpdateNewMessageBodyType | SendMessageActionType) => void) => {

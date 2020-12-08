@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {ReduxStoreType} from "../../redux/redux-store";
 import {UsersPhotoApiType} from "../Users/UsersContainer";
 import {setMyUserProfile} from "../../redux/profile-reducer";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter, Redirect} from "react-router-dom";
 
 export type UserProfileContactsType = {
     facebook:	string | null
@@ -28,6 +28,7 @@ export type UserProfileType = {
 
 export type UserProfilePageType = {
     userProfile: UserProfileType | null
+    isAuth: boolean
     setMyUserProfile: (userID: string) => void
 }
 class ProfileContainer extends React.Component<PropsType> {
@@ -41,6 +42,9 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 
     render(){
+        if(!this.props.isAuth){
+            return <Redirect to = {'/login'} />
+        }
         return (
             <Profile {...this.props} />
         )
@@ -49,7 +53,8 @@ class ProfileContainer extends React.Component<PropsType> {
 }
 
 let mapStateToProps = (store: ReduxStoreType) => ({
-    userProfile: store.profilePage.userProfile
+    userProfile: store.profilePage.userProfile,
+    isAuth: store.auth.isAuth
 })
 
 type PathParamsType = {

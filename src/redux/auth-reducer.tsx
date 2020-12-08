@@ -22,7 +22,7 @@ export const setAuthenticationUserData = () => (dispatch: (action: SetUserDataAc
         .then(data => {
             if(data.resultCode === 0){
                 let {id, login, email} = data.data
-                setAuthUserData(id, email, login);
+                dispatch(setAuthUserData(id, email, login));
             }
         })
 }
@@ -51,7 +51,7 @@ const authReducer =
                     ...action.data,
                     isAuth: true
                 }
-                break
+                
 
             default:
                 return state

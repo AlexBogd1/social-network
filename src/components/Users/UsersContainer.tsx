@@ -21,7 +21,7 @@ type UsersForPageType = {
     followingInProgress: string[]
     followUser: (userId: string) => void
     unFollowUser: (userId: string) => void
-    setCurrentPage: (pageNumber:number) => void
+    setCurrentPage: (pageNumber: number) => void
     toggleIsFollowingInProgress: (isFetching: boolean, userId: string) => void
     getUsers: (currentPage: number, pageSize: number) => void
 }
@@ -40,31 +40,32 @@ export type UsersFromApiType = {
 class UsersContainerComponent extends React.Component<UsersForPageType> {
 
     componentDidMount() {
-            this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
-    onPageChanged = (pageNumber:number) => {
+    onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber);
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
+
     render() {
 
-        return  <>
-            { this.props.isFetching ? <Preloader/> :
-            <Users users={this.props.users}
-                      follow={this.props.followUser}
-                      unfollow={this.props.unFollowUser}
-                      followingInProgress={this.props.followingInProgress}
-                      totalUsersCount={this.props.totalUsersCount}
-                      pageSize={this.props.pageSize}
-                      currentPage={this.props.currentPage}
-                      onPageChanged = {this.onPageChanged}
-        />}
+        return <>
+            {this.props.isFetching ? <Preloader/> :
+                <Users users={this.props.users}
+                       follow={this.props.followUser}
+                       unFollow={this.props.unFollowUser}
+                       followingInProgress={this.props.followingInProgress}
+                       totalUsersCount={this.props.totalUsersCount}
+                       pageSize={this.props.pageSize}
+                       currentPage={this.props.currentPage}
+                       onPageChanged={this.onPageChanged}
+                />}
         </>
     }
 }
 
-const mapStateToProps = (store: ReduxStoreType ) => {
+const mapStateToProps = (store: ReduxStoreType) => {
     return {
         users: store.usersPage.users,
         pageSize: store.usersPage.pageSize,
