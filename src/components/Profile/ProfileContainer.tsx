@@ -5,16 +5,17 @@ import {ReduxStoreType} from "../../redux/redux-store";
 import {UsersPhotoApiType} from "../Users/UsersContainer";
 import {setMyUserProfile} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter, Redirect} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export type UserProfileContactsType = {
-    facebook:	string | null
-    website:	string | null
-    vk:	        string | null
-    twitter:	string | null
-    instagram:	string | null
-    youtube:	string | null
-    github:	    string | null
-    mainLink:	string | null
+    facebook: string | null
+    website: string | null
+    vk: string | null
+    twitter: string | null
+    instagram: string | null
+    youtube: string | null
+    github: string | null
+    mainLink: string | null
 }
 export type UserProfileType = {
     aboutMe: string
@@ -31,6 +32,7 @@ export type UserProfilePageType = {
     isAuth: boolean
     setMyUserProfile: (userID: string) => void
 }
+
 class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
@@ -41,10 +43,7 @@ class ProfileContainer extends React.Component<PropsType> {
         this.props.setMyUserProfile(userID)
     }
 
-    render(){
-        if(!this.props.isAuth){
-            return <Redirect to = {'/login'} />
-        }
+    render() {
         return (
             <Profile {...this.props} />
         )
@@ -52,9 +51,16 @@ class ProfileContainer extends React.Component<PropsType> {
 
 }
 
+let RedirectAuthComponent = withAuthRedirect<PropsType>(ProfileContainer);
+
+let mapStateToPropsForRedirect = (store: ReduxStoreType) => ({
+    isAuth: store.auth.isAuth,
+})
+
+let RedirectComponentWithAuth = connect(mapStateToPropsForRedirect)(RedirectAuthComponent);
+
 let mapStateToProps = (store: ReduxStoreType) => ({
     userProfile: store.profilePage.userProfile,
-    isAuth: store.auth.isAuth
 })
 
 type PathParamsType = {
@@ -63,6 +69,6 @@ type PathParamsType = {
 
 type PropsType = RouteComponentProps<PathParamsType> & UserProfilePageType
 
-let WithUrlDataContainerComponent = withRouter(ProfileContainer)
+let WithUrlDataContainerComponent = withRouter(RedirectComponentWithAuth)
 
 export default connect(mapStateToProps, {setMyUserProfile})(WithUrlDataContainerComponent);
