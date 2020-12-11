@@ -5,7 +5,7 @@ import {ReduxStoreType} from "../../redux/redux-store";
 import {UsersPhotoApiType} from "../Users/UsersContainer";
 import {setMyUserProfile} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter, Redirect} from "react-router-dom";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {withArrowFuncAuthRedirect, withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export type UserProfileContactsType = {
     facebook: string | null
@@ -44,6 +44,7 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 
     render() {
+        console.log({...this.props})
         return (
             <Profile {...this.props} />
         )
@@ -51,8 +52,8 @@ class ProfileContainer extends React.Component<PropsType> {
 
 }
 
-let RedirectAuthComponent = withAuthRedirect<PropsType>(ProfileContainer);
-
+let RedirectAuthComponent = withArrowFuncAuthRedirect<PropsType>(ProfileContainer);
+debugger
 let mapStateToPropsForRedirect = (store: ReduxStoreType) => ({
     isAuth: store.auth.isAuth,
 })

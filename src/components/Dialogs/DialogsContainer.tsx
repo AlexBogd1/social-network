@@ -8,7 +8,7 @@ import {
 import {connect} from "react-redux";
 import Dialogs, {DialogsType} from "./Dialogs";
 import {ReduxStoreType} from "../../redux/redux-store";
-import {withArrowFuncAuthRedirect} from "../../hoc/withAuthRedirect";
+import {withArrowFuncAuthRedirect, withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 const mapStateToProps = (store: ReduxStoreType) =>{
      return { 
@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch: (action: UpdateNewMessageBodyType | SendMe
 
 }
 
-let AuthRedirectComponent = withArrowFuncAuthRedirect<DialogsType>(Dialogs);
+let AuthRedirectComponent = withAuthRedirect<DialogsType>(Dialogs);
 
 let DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(AuthRedirectComponent);
 
