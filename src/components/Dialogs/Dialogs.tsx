@@ -8,7 +8,6 @@ import { Redirect } from "react-router-dom";
 
 export type DialogsType = {
     dialogPage: DialogsPageType
-    isAuth: boolean
     onSendMessageClick: () => void
     onNewMessageChange: (body: string) => void
 }

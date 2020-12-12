@@ -6,9 +6,9 @@ type IsAusType =  {
 }
 
 
-export function withAuthRedirect<T extends IsAusType> (Component: React.ComponentType<T> )  {
+export function withAuthRedirect<T> (Component: React.ComponentType<T> )  {
 
-   class RedirectComponent extends React.Component<T> {
+   class RedirectComponent extends React.Component<T & {isAuth: boolean}> {
        render() {
             if(!this.props.isAuth){
                 return <Redirect to={'/login'}/>
@@ -21,12 +21,11 @@ export function withAuthRedirect<T extends IsAusType> (Component: React.Componen
 }
 
 // with arrow function
-export let withArrowFuncAuthRedirect = <T extends IsAusType>(Component: React.ComponentType<T> ) => {
+export let withArrowFuncAuthRedirect = <T,>(Component: React.ComponentType<T> ) => {
 
-    let RedirectComponent = (props: T) => {
+    let RedirectComponent = (props: T & {isAuth: boolean}) => {
 
             if(!props.isAuth){
-
                 return <Redirect to={'/login'}/>
             }
             return <Component{...props}/>

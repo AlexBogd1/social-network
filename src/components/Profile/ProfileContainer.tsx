@@ -29,7 +29,7 @@ export type UserProfileType = {
 
 export type UserProfilePageType = {
     userProfile: UserProfileType | null
-    isAuth: boolean
+
     setMyUserProfile: (userID: string) => void
 }
 
@@ -53,7 +53,7 @@ class ProfileContainer extends React.Component<PropsType> {
 }
 
 let RedirectAuthComponent = withArrowFuncAuthRedirect<PropsType>(ProfileContainer);
-debugger
+
 let mapStateToPropsForRedirect = (store: ReduxStoreType) => ({
     isAuth: store.auth.isAuth,
 })

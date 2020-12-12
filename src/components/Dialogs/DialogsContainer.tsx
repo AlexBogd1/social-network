@@ -13,7 +13,7 @@ import {withArrowFuncAuthRedirect, withAuthRedirect} from "../../hoc/withAuthRed
 const mapStateToProps = (store: ReduxStoreType) =>{
      return { 
          dialogPage: store.dialogPage,
-         isAuth: store.auth.isAuth
+
         }
     }
 
@@ -28,6 +28,14 @@ const mapDispatchToProps = (dispatch: (action: UpdateNewMessageBodyType | SendMe
 
 let AuthRedirectComponent = withAuthRedirect<DialogsType>(Dialogs);
 
-let DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(AuthRedirectComponent);
+const mapStateToPropsForRedirect = (store: ReduxStoreType) =>{
+    return {
+        isAuth: store.auth.isAuth
+    }
+}
+
+let AuthRedirectComponentWithAuth = connect(mapStateToPropsForRedirect)(AuthRedirectComponent);
+
+let DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(AuthRedirectComponentWithAuth);
 
 export default DialogsContainer;
