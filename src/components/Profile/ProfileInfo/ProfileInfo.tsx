@@ -17,10 +17,10 @@ const ProfileInfo = (props:ProfileInfoType) => {
 
     return (
         <div >
-            <div>
-                <img className={style.img}
-                     src='https://www.metoffice.gov.uk/binaries/content/gallery/metofficegovuk/hero-images/advice/maps-satellite-images/satellite-image-of-globe.jpg'/>
-            </div>
+            {/*<div>*/}
+            {/*    <img className={style.img}*/}
+            {/*         src='https://www.metoffice.gov.uk/binaries/content/gallery/metofficegovuk/hero-images/advice/maps-satellite-images/satellite-image-of-globe.jpg'/>*/}
+            {/*</div>*/}
             <div className={style.profile}>
                 <img
                      src={props.profile?.photos.large}/>

@@ -65,8 +65,8 @@ let mapStateToProps = (store: ReduxStoreType) => ({
 
 
 
-// compose()() - принимает функции, кот оборачивают нашу комп в HOC в обр порядке и саму компоненту
-export default compose(connect(mapStateToProps, {setMyUserProfile}), withRouter,withAuthRedirect)(ProfileContainer) as React.ComponentType
+// compose()() - принимает функции, кот оборачивают нашу комп в обр порядке и саму компоненту(т.е. наша компонента прогоняется от withAuthRedirect до посл connect и возвр HOC с результатом цепочки)
+export default compose(connect(mapStateToProps, {setMyUserProfile}), withRouter)(ProfileContainer) as React.ComponentType
 
 
 

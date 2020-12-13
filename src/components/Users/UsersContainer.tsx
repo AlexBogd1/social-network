@@ -10,6 +10,8 @@ import {
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from '../common/Preloader';
+import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 type UsersForPageType = {
@@ -77,6 +79,15 @@ const mapStateToProps = (store: ReduxStoreType) => {
 
 }
 
+
+// compose()() - принимает функции, кот оборачивают нашу комп в обр порядке и саму компоненту(т.е. наша компонента прогоняется от withAuthRedirect до посл connect и возвр HOC с результатом цепочки)
+export default compose(withAuthRedirect,
+    connect(mapStateToProps, {followUser, unFollowUser, toggleIsFollowingInProgress, setCurrentPage, getUsers})
+    )(UsersContainerComponent) as React.ComponentType
+
+
+
+
 // const mapDispatchToProps = (dispatch: (action: FollowActionType | UnfollowActionType| SetUsersActionType | SetCurrentPageActionType| SetTotalCountActionType|ToggleIsFetchingActionType) => void) => {
 //     return {
 //         follow: (userId: string) => dispatch(follow(userId)),
@@ -88,6 +99,5 @@ const mapStateToProps = (store: ReduxStoreType) => {
 //     }
 // }
 
-
-export default connect(mapStateToProps,
-    {followUser, unFollowUser, toggleIsFollowingInProgress, setCurrentPage, getUsers})(UsersContainerComponent);
+// export default connect(mapStateToProps,
+//     {followUser, unFollowUser, toggleIsFollowingInProgress, setCurrentPage, getUsers})(UsersContainerComponent);
