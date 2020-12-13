@@ -4,8 +4,9 @@ import {connect} from "react-redux";
 import {ReduxStoreType} from "../../redux/redux-store";
 import {UsersPhotoApiType} from "../Users/UsersContainer";
 import {setMyUserProfile} from "../../redux/profile-reducer";
-import {RouteComponentProps, withRouter, Redirect} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withArrowFuncAuthRedirect, withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 export type UserProfileContactsType = {
     facebook: string | null
@@ -29,7 +30,6 @@ export type UserProfileType = {
 
 export type UserProfilePageType = {
     userProfile: UserProfileType | null
-
     setMyUserProfile: (userID: string) => void
 }
 
@@ -51,25 +51,29 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 
 }
+type PathParamsType = {
+    userID: string,
+}
 
-let RedirectAuthComponent = withArrowFuncAuthRedirect<PropsType>(ProfileContainer);
+// RouteComponentProps необходимо для оборачивания компоненты для withRouter
+type PropsType = RouteComponentProps<PathParamsType> & UserProfilePageType
 
-let mapStateToPropsForRedirect = (store: ReduxStoreType) => ({
-    isAuth: store.auth.isAuth,
-})
-
-let RedirectComponentWithAuth = connect(mapStateToPropsForRedirect)(RedirectAuthComponent);
 
 let mapStateToProps = (store: ReduxStoreType) => ({
     userProfile: store.profilePage.userProfile,
 })
 
-type PathParamsType = {
-    userID: string,
-}
 
-type PropsType = RouteComponentProps<PathParamsType> & UserProfilePageType
 
-let WithUrlDataContainerComponent = withRouter(RedirectComponentWithAuth)
+// compose()() - принимает функции, кот оборачивают нашу комп в HOC в обр порядке и саму компоненту
+export default compose(connect(mapStateToProps, {setMyUserProfile}), withRouter,withAuthRedirect)(ProfileContainer) as React.ComponentType
 
-export default connect(mapStateToProps, {setMyUserProfile})(WithUrlDataContainerComponent);
+
+
+//let RedirectAuthComponent = withAuthRedirect<PropsType>(ProfileContainer);
+// let mapStateToPropsForRedirect = (store: ReduxStoreType) => ({
+//     isAuth: store.auth.isAuth,
+// })
+//
+// let RedirectComponentWithAuth = connect(mapStateToPropsForRedirect)(RedirectAuthComponent);
+//export default connect(mapStateToProps, {setMyUserProfile})(WithUrlDataContainerComponent);
