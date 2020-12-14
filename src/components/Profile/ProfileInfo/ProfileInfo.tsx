@@ -1,29 +1,26 @@
 import React from "react";
 import style from './ProfileInfo.module.css';
-import { UserProfileType } from "../ProfileContainer";
+import {UserProfileType} from "../ProfileContainer";
 import Preloader from "../../common/Preloader";
-
-
+import ProfileStatus from './ProfileStatus'
 
 type ProfileInfoType = {
-    profile:  UserProfileType | null
+    profile: UserProfileType | null
 }
 
-const ProfileInfo = (props:ProfileInfoType) => {
+const ProfileInfo = (props: ProfileInfoType) => {
 
-    if(!props.profile) {
+    if (!props.profile) {
         return <Preloader/>
     }
 
     return (
-        <div >
-            {/*<div>*/}
-            {/*    <img className={style.img}*/}
-            {/*         src='https://www.metoffice.gov.uk/binaries/content/gallery/metofficegovuk/hero-images/advice/maps-satellite-images/satellite-image-of-globe.jpg'/>*/}
-            {/*</div>*/}
+        <div>
+
             <div className={style.profile}>
                 <img
-                     src={props.profile?.photos.large}/>
+                    src={props.profile?.photos.large}/>
+                <ProfileStatus status={'isidslsl'}/>
                 <div>
                     About Me: {props.profile?.aboutMe}
                 </div>
