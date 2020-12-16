@@ -59,6 +59,15 @@ export const getStatus = (userId: string) => (dispatch: (action: ActionsType) =>
     profileAPI.getStatus(userId).then(response => dispatch(setStatus(response.data)))
 }
 
+export const updateStatus = (newStatus: string) => (dispatch: (action: ActionsType) => void) =>{
+    profileAPI.updateStatus(newStatus).then(
+        response => {
+            if(response.data.resultCode === 0){
+                dispatch(setStatus(newStatus))
+            }
+        })
+}
+
 
 type ActionsType = AddPostActionType
     | UpdateNewPostActionType
