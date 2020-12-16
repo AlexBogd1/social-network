@@ -5,7 +5,6 @@ import {ReduxStoreType} from "../../redux/redux-store";
 import {UsersPhotoApiType} from "../Users/UsersContainer";
 import {setMyUserProfile} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {withArrowFuncAuthRedirect, withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 export type UserProfileContactsType = {
@@ -31,6 +30,7 @@ export type UserProfileType = {
 export type UserProfilePageType = {
     userProfile: UserProfileType | null
     setMyUserProfile: (userID: string) => void
+    getUserStatus: (newStatus: string) => void
 }
 
 class ProfileContainer extends React.Component<PropsType> {
@@ -40,11 +40,11 @@ class ProfileContainer extends React.Component<PropsType> {
         if (!userID) {
             userID = '2';
         }
-        this.props.setMyUserProfile(userID)
+        this.props.setMyUserProfile(userID);
+        this.props.getUserStatus(userID)
     }
 
     render() {
-        console.log({...this.props})
         return (
             <Profile {...this.props} />
         )
@@ -61,8 +61,8 @@ type PropsType = RouteComponentProps<PathParamsType> & UserProfilePageType
 
 let mapStateToProps = (store: ReduxStoreType) => ({
     userProfile: store.profilePage.userProfile,
+    status: store.profilePage.status
 })
-
 
 
 // compose()() - принимает функции, кот оборачивают нашу комп в обр порядке и саму компоненту(т.е. наша компонента прогоняется от withAuthRedirect до посл connect и возвр HOC с результатом цепочки)

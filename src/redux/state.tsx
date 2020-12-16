@@ -10,6 +10,7 @@ export type ProfilePageType = {
     messageForNewPost: string
     posts: Array<PostType>
     userProfile: UserProfileType | null
+    status: string
 }
 
 export type DialogsPageType = {
@@ -42,7 +43,8 @@ const store: StoreType = {
                 {id: 3, message: 'It is my second post', likesCount: 15},
             ],
             messageForNewPost: 'Hello from state',
-            userProfile: null
+            userProfile: null,
+            status: ''
         },
         dialogsPage: {
             dialogs: [

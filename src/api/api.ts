@@ -14,16 +14,21 @@ export const usersAPI = {
     },
 
     setUser(userId: string) {
-        return istance.get('profile/'+ userId).then(response => response.data)
+        return istance.get('profile/' + userId).then(response => response.data)
     },
 
     unFollow(id: string) {
-        return  istance.delete(`follow/${id}`)
-            .then (response => response.data)
+        return istance.delete(`follow/${id}`)
+            .then(response => response.data)
     },
 
     follow(id: string) {
         return istance.post(`follow/${id}`).then(response => response.data)
+    },
+
+    getProfile(userId: string) {
+        console.warn('Obsolete method. Please use profileAPI object')
+        return profileAPI.getProfile(userId)
     },
 
     auth() {
@@ -31,3 +36,17 @@ export const usersAPI = {
     }
 
 }
+
+export const profileAPI = {
+    getProfile(userId: string) {
+        return istance.get('profile/' + userId)
+    },
+    getStatus(userId: string){
+        return istance.get('profile/status/'+ userId)
+    },
+    updateStatus(newStatus:string){
+        return istance.put('profile/status',{status: newStatus})
+    }
+
+}
+

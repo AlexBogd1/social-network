@@ -2,7 +2,7 @@ import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {ProfilePageType} from "./state";
 import {SendMessageActionType, UpdateNewMessageBodyType} from "./dialogs-reducer";
 import {UserProfileType} from "../components/Profile/ProfileContainer";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 
 export type AddPostActionType = {
@@ -16,10 +16,16 @@ export type SetUserProfileType = {
     type: "SET-USER-PROFILE"
     userProfile: UserProfileType
 }
+export type SetStatusType = {
+    type: "SET-STATUS"
+    status: string
+}
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
+const SET_STATUS = "SET-STATUS";
+
 
 export const addPostActionCreator = (): AddPostActionType => {
     return {
@@ -38,13 +44,20 @@ export const setUserProfile = (userProfile: UserProfileType): SetUserProfileType
         userProfile
     }
 }
-
-export const setMyUserProfile = (userID: string)=> (dispatch: (action: ActionsType) => void) => {
+export const setMyUserProfile = (userID: string) => (dispatch: (action: ActionsType) => void) => {
     usersAPI.setUser(userID).then(data => {
         dispatch(setUserProfile(data));
     })
 }
-
+export const setStatus = (status: string)  => {
+    return {
+    type: SET_STATUS,
+    status
+} as const
+}
+export const getStatus = (userId: string) => (dispatch: (action: ActionsType) => void) => {
+    profileAPI.getStatus(userId).then(response => dispatch(setStatus(response.data)))
+}
 
 
 type ActionsType = AddPostActionType
@@ -52,15 +65,17 @@ type ActionsType = AddPostActionType
     | UpdateNewMessageBodyType
     | SendMessageActionType
     | SetUserProfileType
+    | SetStatusType
 
-let initialState: ProfilePageType =  {
+let initialState: ProfilePageType = {
     posts: [
         {id: 1, message: 'Hi? how are you', likesCount: 12},
         {id: 2, message: 'It is my first post', likesCount: 11},
         {id: 3, message: 'It is my second post', likesCount: 15},
     ],
     messageForNewPost: 'Hello from state',
-    userProfile: null
+    userProfile: null,
+    status: ''
 }
 
 const profileReducer =
@@ -77,7 +92,7 @@ const profileReducer =
 
                 return {
                     ...state,
-                    posts: [...state.posts,newPost],
+                    posts: [...state.posts, newPost],
                     messageForNewPost: "",
                 };
 
@@ -86,8 +101,14 @@ const profileReducer =
                     ...state,
                     messageForNewPost: action.newText,
                 };
-            case "SET-USER-PROFILE":
-                return {...state, userProfile: action.userProfile }
+            case SET_USER_PROFILE:
+                return {...state, userProfile: action.userProfile};
+
+            case SET_STATUS:
+                return {
+                    ...state,
+                    status: action.status
+                }
             default:
                 return state
         }
