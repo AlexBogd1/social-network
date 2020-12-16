@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {ReduxStoreType} from "../../redux/redux-store";
 import {UsersPhotoApiType} from "../Users/UsersContainer";
-import {setMyUserProfile} from "../../redux/profile-reducer";
+import {getStatus, setMyUserProfile, updateStatus} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 
@@ -29,8 +29,10 @@ export type UserProfileType = {
 
 export type UserProfilePageType = {
     userProfile: UserProfileType | null
+    status: string
     setMyUserProfile: (userID: string) => void
-    getUserStatus: (newStatus: string) => void
+    getStatus: (userId: string) => void
+    updateStatus: (newStatus: string) => void
 }
 
 class ProfileContainer extends React.Component<PropsType> {
@@ -41,7 +43,7 @@ class ProfileContainer extends React.Component<PropsType> {
             userID = '2';
         }
         this.props.setMyUserProfile(userID);
-        this.props.getUserStatus(userID)
+        this.props.getStatus(userID)
     }
 
     render() {
@@ -66,7 +68,7 @@ let mapStateToProps = (store: ReduxStoreType) => ({
 
 
 // compose()() - принимает функции, кот оборачивают нашу комп в обр порядке и саму компоненту(т.е. наша компонента прогоняется от withAuthRedirect до посл connect и возвр HOC с результатом цепочки)
-export default compose(connect(mapStateToProps, {setMyUserProfile}), withRouter)(ProfileContainer) as React.ComponentType
+export default compose(connect(mapStateToProps, {setMyUserProfile, getStatus, updateStatus}), withRouter)(ProfileContainer) as React.ComponentType
 
 
 

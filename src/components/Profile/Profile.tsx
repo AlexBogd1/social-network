@@ -8,7 +8,9 @@ const Profile = (props: UserProfilePageType) => {
 
     return (
         <div>
-            <ProfileInfo profile = {props.userProfile}/>
+            <ProfileInfo profile = {props.userProfile}
+                         status={props.status}
+                         updateStatus={props.updateStatus}/>
             <MyPostsContainer />
         </div>
     )

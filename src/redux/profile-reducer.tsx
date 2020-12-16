@@ -58,7 +58,6 @@ export const setStatus = (status: string)  => {
 export const getStatus = (userId: string) => (dispatch: (action: ActionsType) => void) => {
     profileAPI.getStatus(userId).then(response => dispatch(setStatus(response.data)))
 }
-
 export const updateStatus = (newStatus: string) => (dispatch: (action: ActionsType) => void) =>{
     profileAPI.updateStatus(newStatus).then(
         response => {
