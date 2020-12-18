@@ -5,9 +5,7 @@ import {InjectedFormProps, Field, reduxForm } from "redux-form";
 
 export type MyPostsType = {
     posts: Array<PostType>
-    messageForNewPost: string
     addPost: (post: string) => void
-    onChangeText: (text: string) => void
 }
 
 export type MyPostFormType = {
@@ -21,17 +19,8 @@ const MyPosts = (props: MyPostsType) => {
             return <Post id={p.id} message={p.message} likesCount={p.likesCount}/>
         })
 
-    const newPostElement = useRef<HTMLTextAreaElement>(null)
-
     let addPost = (propsForm: MyPostFormType) => {
         props.addPost(propsForm.post);
-    }
-
-    const onChangeText = () => {
-        if (newPostElement.current) {
-            let text = newPostElement.current.value;
-            props.onChangeText(text);
-        }
     }
 
     return (

@@ -1,10 +1,13 @@
 import {PostType} from "../components/Profile/MyPosts/Post/Post";
-import {ProfilePageType} from "./state";
 import {SendMessageActionType} from "./dialogs-reducer";
 import {UserProfileType} from "../components/Profile/ProfileContainer";
 import {profileAPI, usersAPI} from "../api/api";
 
-
+type ProfilePageTypeForm = {
+    posts: Array<PostType>
+    userProfile: UserProfileType | null
+    status: string
+}
 export type AddPostActionType = {
     type: "ADD-POST"
     post: string
@@ -23,7 +26,7 @@ export type SetStatusType = {
 }
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+
 const SET_USER_PROFILE = "SET-USER-PROFILE";
 const SET_STATUS = "SET-STATUS";
 
@@ -34,12 +37,7 @@ export const addPostActionCreator = (post: string): AddPostActionType => {
         post
     }
 }
-export const updateNewPostTextActionCreator = (text: string): UpdateNewPostActionType => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        newText: text,
-    }
-}
+
 export const setUserProfile = (userProfile: UserProfileType): SetUserProfileType => {
     return {
         type: SET_USER_PROFILE,
@@ -71,18 +69,16 @@ export const updateStatus = (newStatus: string) => (dispatch: (action: ActionsTy
 
 
 type ActionsType = AddPostActionType
-    | UpdateNewPostActionType
     | SendMessageActionType
     | SetUserProfileType
     | SetStatusType
 
-let initialState: ProfilePageType = {
+let initialState: ProfilePageTypeForm = {
     posts: [
         {id: 1, message: 'Hi? how are you', likesCount: 12},
         {id: 2, message: 'It is my first post', likesCount: 11},
         {id: 3, message: 'It is my second post', likesCount: 15},
     ],
-    messageForNewPost: 'Hello from state',
     userProfile: null,
     status: ''
 }
@@ -105,11 +101,6 @@ const profileReducer =
                     messageForNewPost: "",
                 };
 
-            case UPDATE_NEW_POST_TEXT:
-                return {
-                    ...state,
-                    messageForNewPost: action.newText,
-                };
             case SET_USER_PROFILE:
                 return {...state, userProfile: action.userProfile};
 
