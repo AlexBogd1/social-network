@@ -10,7 +10,6 @@ import  {InjectedFormProps, Field, reduxForm} from "redux-form";
 export type DialogsType = {
     dialogPage: DialogsPageType
     onSendMessageClick: (message: string) => void
-
 }
 export type DialogsFormType = {
     message: string
@@ -27,7 +26,6 @@ const Dialogs = (props: DialogsType) => {
     let messagesElements = props.dialogPage.messages.map(m => {
         return <Message id={m.id} message={m.message}/>
     })
-    let newMessageBody = props.dialogPage.newMessageBody;
 
     let onSendMessageClick = (formData: DialogsFormType) => {
         props.onSendMessageClick(formData.message)
@@ -48,7 +46,6 @@ const Dialogs = (props: DialogsType) => {
 }
 
 const DialogForm = (props: InjectedFormProps<DialogsFormType>) => {
-
     return (
         <form onSubmit={props.handleSubmit}>
             <div>

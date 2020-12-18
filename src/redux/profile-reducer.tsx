@@ -7,6 +7,7 @@ import {profileAPI, usersAPI} from "../api/api";
 
 export type AddPostActionType = {
     type: "ADD-POST"
+    post: string
 }
 export type UpdateNewPostActionType = {
     type: "UPDATE-NEW-POST-TEXT"
@@ -27,9 +28,10 @@ const SET_USER_PROFILE = "SET-USER-PROFILE";
 const SET_STATUS = "SET-STATUS";
 
 
-export const addPostActionCreator = (): AddPostActionType => {
+export const addPostActionCreator = (post: string): AddPostActionType => {
     return {
-        type: ADD_POST
+        type: ADD_POST,
+        post
     }
 }
 export const updateNewPostTextActionCreator = (text: string): UpdateNewPostActionType => {
@@ -93,7 +95,7 @@ const profileReducer =
             case ADD_POST:
                 let newPost: PostType = {
                     id: 5,
-                    message: state.messageForNewPost,
+                    message: action.post,
                     likesCount: 0,
                 };
 
