@@ -6,7 +6,7 @@ import {
     UpdateNewMessageBodyType
 } from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
-import Dialogs, {DialogsType} from "./Dialogs";
+import Dialogs, {DialogsFormType, DialogsType} from "./Dialogs";
 import {ReduxStoreType} from "../../redux/redux-store";
 import {withArrowFuncAuthRedirect, withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -19,7 +19,7 @@ const mapStateToProps = (store: ReduxStoreType) =>{
 
 const mapDispatchToProps = (dispatch: (action: UpdateNewMessageBodyType | SendMessageActionType) => void) => {
     return {
-        onSendMessageClick: () => dispatch(sendMessageCreator()),
+        onSendMessageClick: (message: string) => dispatch(sendMessageCreator(message)),
         onNewMessageChange: (body: string) => dispatch(updateNewMessageBodyCreator(body)),
     }
 

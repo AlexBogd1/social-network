@@ -1,5 +1,6 @@
 import React from 'react'
 import   {InjectedFormProps, Field, reduxForm} from "redux-form";
+import {profileAPI, usersAPI} from "../../api/api";
 
 type FormDataType ={
     login: string
@@ -30,7 +31,8 @@ let LoginReduxForm = reduxForm<FormDataType>({form: "login"})(LoginForm)
 
 const Login = () => {
     const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
+     let  {login, password, rememberMe} = {...formData}
+        usersAPI.login(login, password, rememberMe).then(res => console.log(res))
     }
     return <div>
         <h1>Login</h1>

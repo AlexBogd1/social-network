@@ -9,14 +9,16 @@ export type UpdateNewMessageBodyType = {
 }
 export type SendMessageActionType = {
     type: 'SEND_MESSAGE'
+    message: string
 }
 
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE_NEW_MESSAGE_BODY";
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
-export const sendMessageCreator = (): SendMessageActionType => {
+export const sendMessageCreator = (message: string): SendMessageActionType => {
     return {
         type: SEND_MESSAGE,
+        message
     }
 }
 export const updateNewMessageBodyCreator = (body: string): UpdateNewMessageBodyType => {
@@ -58,7 +60,7 @@ const dialogsReducer =
                 }
 
             case SEND_MESSAGE:
-                let body = state.newMessageBody;
+                let body = action.message;
                 return {
                     ...state,
                     newMessageBody: '',

@@ -33,6 +33,10 @@ export const usersAPI = {
 
     auth() {
         return istance.get(`auth/me`).then(response => response.data)
+    },
+
+    login(email: string, password: string, rememberMe: boolean, captcha:boolean = false ){
+        return istance.post('auth/login',{email, password, rememberMe, captcha})
     }
 
 }
