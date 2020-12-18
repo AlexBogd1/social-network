@@ -1,30 +1,27 @@
 
-import {DialogsPageType} from "./state";
+
 import {AddPostActionType, UpdateNewPostActionType} from "./profile-reducer";
+import {MessageType} from "../components/Dialogs/Message/Message";
+import {DialogItemType} from "../components/Dialogs/DialogItem/DialodsItem";
 
 
-export type UpdateNewMessageBodyType = {
-    type: 'UPDATE_NEW_MESSAGE_BODY'
-    body: string
+export type DialogsPageType = {
+    messages: Array<MessageType>
+    dialogs: Array<DialogItemType>
 }
+
 export type SendMessageActionType = {
     type: 'SEND_MESSAGE'
     message: string
 }
 
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE_NEW_MESSAGE_BODY";
+
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
 export const sendMessageCreator = (message: string): SendMessageActionType => {
     return {
         type: SEND_MESSAGE,
         message
-    }
-}
-export const updateNewMessageBodyCreator = (body: string): UpdateNewMessageBodyType => {
-    return {
-        type: UPDATE_NEW_MESSAGE_BODY,
-        body: body,
     }
 }
 
@@ -45,25 +42,19 @@ let initialState: DialogsPageType = {
         {id: 4, message: 'Yo'},
         {id: 5, message: 'Yo'},
     ],
-    newMessageBody: '',
+
 }
 
 const dialogsReducer =
     (state = initialState,
-     action: AddPostActionType | UpdateNewPostActionType | UpdateNewMessageBodyType | SendMessageActionType) => {
+     action: AddPostActionType | UpdateNewPostActionType | SendMessageActionType) => {
 
         switch (action.type) {
-            case UPDATE_NEW_MESSAGE_BODY:
-                return {
-                    ...state,
-                    newMessageBody: action.body
-                }
 
             case SEND_MESSAGE:
                 let body = action.message;
                 return {
                     ...state,
-                    newMessageBody: '',
                     messages: [...state.messages,{id: 6, message: body} ]
                 }
 

@@ -2,7 +2,7 @@ import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {DialogItemType} from "../components/Dialogs/DialogItem/DialodsItem";
 import {MessageType} from "../components/Dialogs/Message/Message";
 import profileReducer, {AddPostActionType, UpdateNewPostActionType} from "./profile-reducer";
-import dialogsReducer, {SendMessageActionType, UpdateNewMessageBodyType} from "./dialogs-reducer";
+import {SendMessageActionType} from "./dialogs-reducer";
 import {UserProfileType} from "../components/Profile/ProfileContainer";
 
 
@@ -30,8 +30,8 @@ export type StoreType = {
     _rerenderEntireTree: () => void
     subscribe: (observer: () => void) => void
     dispatch: (action:
-                   AddPostActionType | UpdateNewPostActionType |
-                   UpdateNewMessageBodyType | SendMessageActionType) => void
+                   AddPostActionType | UpdateNewPostActionType
+                   | SendMessageActionType) => void
 }
 
 const store: StoreType = {
@@ -77,7 +77,7 @@ const store: StoreType = {
 
     dispatch(action) { // { type: 'ADD-POST' }
         this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        //this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._rerenderEntireTree();
     }
 }

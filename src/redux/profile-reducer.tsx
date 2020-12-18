@@ -1,6 +1,6 @@
 import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {ProfilePageType} from "./state";
-import {SendMessageActionType, UpdateNewMessageBodyType} from "./dialogs-reducer";
+import {SendMessageActionType} from "./dialogs-reducer";
 import {UserProfileType} from "../components/Profile/ProfileContainer";
 import {profileAPI, usersAPI} from "../api/api";
 
@@ -70,7 +70,6 @@ export const updateStatus = (newStatus: string) => (dispatch: (action: ActionsTy
 
 type ActionsType = AddPostActionType
     | UpdateNewPostActionType
-    | UpdateNewMessageBodyType
     | SendMessageActionType
     | SetUserProfileType
     | SetStatusType

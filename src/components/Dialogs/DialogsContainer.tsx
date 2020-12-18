@@ -1,14 +1,9 @@
 import React from "react";
-import {
-    SendMessageActionType,
-    sendMessageCreator,
-    updateNewMessageBodyCreator,
-    UpdateNewMessageBodyType
-} from "../../redux/dialogs-reducer";
+import {SendMessageActionType, sendMessageCreator} from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
-import Dialogs, {DialogsFormType, DialogsType} from "./Dialogs";
+import Dialogs from "./Dialogs";
 import {ReduxStoreType} from "../../redux/redux-store";
-import {withArrowFuncAuthRedirect, withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {withArrowFuncAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 const mapStateToProps = (store: ReduxStoreType) =>{
@@ -17,10 +12,9 @@ const mapStateToProps = (store: ReduxStoreType) =>{
         }
     }
 
-const mapDispatchToProps = (dispatch: (action: UpdateNewMessageBodyType | SendMessageActionType) => void) => {
+const mapDispatchToProps = (dispatch: (action:  SendMessageActionType) => void) => {
     return {
         onSendMessageClick: (message: string) => dispatch(sendMessageCreator(message)),
-        onNewMessageChange: (body: string) => dispatch(updateNewMessageBodyCreator(body)),
     }
 
 }

@@ -10,7 +10,7 @@ import  {InjectedFormProps, Field, reduxForm} from "redux-form";
 export type DialogsType = {
     dialogPage: DialogsPageType
     onSendMessageClick: (message: string) => void
-    onNewMessageChange: (body: string) => void
+
 }
 export type DialogsFormType = {
     message: string
@@ -32,10 +32,7 @@ const Dialogs = (props: DialogsType) => {
     let onSendMessageClick = (formData: DialogsFormType) => {
         props.onSendMessageClick(formData.message)
     }
-    let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let body = e.target.value;
-        props.onNewMessageChange(body)
-    }
+
 
     return (
         <div className={style.dialogs}>
@@ -63,7 +60,6 @@ const DialogForm = (props: InjectedFormProps<DialogsFormType>) => {
         </form>
     )
 }
-
 const DialogsFormReducer = reduxForm<DialogsFormType>({form: 'dialogsForm'})(DialogForm)
 
 export default Dialogs;
