@@ -1,6 +1,8 @@
 import React from "react";
 
-export const required = (value:string)=> {
+export type FieldValidatorType = (value: string) => string | undefined
+
+export const required: FieldValidatorType = (value)=> {
    return  value  ? undefined: 'Invalid Message'
 }
 
