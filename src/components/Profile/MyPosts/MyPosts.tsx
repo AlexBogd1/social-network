@@ -2,6 +2,8 @@ import React, {useRef} from "react";
 import style from './MyPosts.module.css';
 import Post, {PostType} from "./Post/Post";
 import {InjectedFormProps, Field, reduxForm } from "redux-form";
+import {maxLengthValidator, required} from "../../../utils/validators/validators";
+
 
 export type MyPostsType = {
     posts: Array<PostType>
@@ -12,8 +14,10 @@ export type MyPostFormType = {
     post: string
 }
 
+let maxLengthVal = maxLengthValidator(15)
+
 const MyPosts = (props: MyPostsType) => {
-    console.log(props)
+
     let postsElements =
         props.posts.map(p => {
             return <Post id={p.id} message={p.message} likesCount={p.likesCount}/>
@@ -22,6 +26,7 @@ const MyPosts = (props: MyPostsType) => {
     let addPost = (propsForm: MyPostFormType) => {
         props.addPost(propsForm.post);
     }
+
 
     return (
 
@@ -36,9 +41,15 @@ const MyPosts = (props: MyPostsType) => {
 }
 
 const MyPostForm: React.FC<InjectedFormProps<MyPostFormType>> = (props) => {
+
     return <form onSubmit={props.handleSubmit}>
         <div>
-            <Field name = {'post'} placeholder = 'enter message' component = 'textarea' />
+            <Field name = {'post'}
+                   placeholder = 'enter message'
+                   component = 'textarea'
+                   validate = {[required,maxLengthVal]}
+
+            />
         </div>
         <div>
             <button>Add post</button>
