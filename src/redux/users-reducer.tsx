@@ -10,31 +10,31 @@ const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 const TOGGLE_IS_FOLLOWING_IN_PROGRESS = "TOGGLE_IS_FOLLOWING_IN_PROGRESS";
 
 export type FollowActionType = {
-    type: 'FOLLOW'
+    type: typeof FOLLOW
     userId: string
 }
 export type UnfollowActionType = {
-    type: 'UNFOLLOW'
+    type: typeof UNFOLLOW
     userId: string
 }
 export type SetUsersActionType = {
-    type: "SET_USERS"
+    type: typeof SET_USERS
     users: Array<UsersFromApiType>
 }
 export type SetCurrentPageActionType = {
-    type: "SET_CURRENT_PAGE"
+    type: typeof SET_CURRENT_PAGE
     pageNumber: number
 }
 export type SetTotalCountActionType = {
-    type: "SET_TOTAL_COUNT"
+    type: typeof SET_TOTAL_COUNT
     totalUsersCount: number
 }
 export type ToggleIsFetchingActionType = {
-    type: "TOGGLE_IS_FETCHING"
+    type: typeof TOGGLE_IS_FETCHING
     isFetching: boolean
 }
 export type ToggleIsFollowingInProgressActionType = {
-    type: "TOGGLE_IS_FOLLOWING_IN_PROGRESS"
+    type: typeof TOGGLE_IS_FOLLOWING_IN_PROGRESS
     isFetching: boolean
     userId: string
 }
@@ -153,6 +153,7 @@ const usersReducer =
                     })
                 }
                 break
+
             case UNFOLLOW:
                 debugger
                 return {
@@ -166,6 +167,7 @@ const usersReducer =
                     })
                 }
                 break
+
             case SET_USERS:
                 return {...state, users: [...action.users]}
 
@@ -174,14 +176,17 @@ const usersReducer =
                 ...state,
                 currentPage: action.pageNumber
             }
-            case "SET_TOTAL_COUNT":
+
+            case SET_TOTAL_COUNT:
                 return {
                     ...state,
                     totalUsersCount: action.totalUsersCount
                 }
-            case "TOGGLE_IS_FETCHING":
+
+            case TOGGLE_IS_FETCHING:
                 return {...state, isFetching: action.isFetching}
-            case "TOGGLE_IS_FOLLOWING_IN_PROGRESS":
+
+            case TOGGLE_IS_FOLLOWING_IN_PROGRESS:
                 return {
                     ...state,
                     followingInProgress:

@@ -8,28 +8,28 @@ type ProfilePageTypeForm = {
     userProfile: UserProfileType | null
     status: string
 }
+
 export type AddPostActionType = {
-    type: "ADD-POST"
+    type: typeof ADD_POST
     post: string
 }
 export type UpdateNewPostActionType = {
-    type: "UPDATE-NEW-POST-TEXT"
+    type: typeof UPDATE_NEW_POST_TEXT
     newText: string
 }
 export type SetUserProfileType = {
-    type: "SET-USER-PROFILE"
+    type: typeof SET_USER_PROFILE
     userProfile: UserProfileType
 }
 export type SetStatusType = {
-    type: "SET-STATUS"
+    type: typeof SET_STATUS
     status: string
 }
 
 const ADD_POST = 'ADD-POST';
-
 const SET_USER_PROFILE = "SET-USER-PROFILE";
 const SET_STATUS = "SET-STATUS";
-
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 
 export const addPostActionCreator = (post: string): AddPostActionType => {
     return {
