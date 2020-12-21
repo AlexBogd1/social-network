@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const istance = axios.create({
+const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
     withCredentials: true,
     headers: {"API-KEY": 'd77a6d97-4f2e-437e-9116-ca68d9731287'},
@@ -9,21 +9,21 @@ const istance = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage: number = 1, pageSize: number = 5) {
-        return istance.get(`users?page=${currentPage}&count=${pageSize}`)
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data)
     },
 
     setUser(userId: string) {
-        return istance.get('profile/' + userId).then(response => response.data)
+        return instance.get('profile/' + userId).then(response => response.data)
     },
 
     unFollow(id: string) {
-        return istance.delete(`follow/${id}`)
+        return instance.delete(`follow/${id}`)
             .then(response => response.data)
     },
 
     follow(id: string) {
-        return istance.post(`follow/${id}`).then(response => response.data)
+        return instance.post(`follow/${id}`).then(response => response.data)
     },
 
     getProfile(userId: string) {
@@ -32,24 +32,24 @@ export const usersAPI = {
     },
 
     auth() {
-        return istance.get(`auth/me`).then(response => response.data)
+        return instance.get(`auth/me`).then(response => response.data)
     },
 
-    login(email: string, password: string, rememberMe: boolean, captcha:boolean = false ){
-        return istance.post('auth/login',{email, password, rememberMe, captcha})
+    login(email: string, password: string, rememberMe: boolean ){
+        return instance.post('auth/login',{email, password, rememberMe})
     }
 
 }
 
 export const profileAPI = {
     getProfile(userId: string) {
-        return istance.get('profile/' + userId)
+        return instance.get('profile/' + userId)
     },
     getStatus(userId: string){
-        return istance.get('profile/status/'+ userId)
+        return instance.get('profile/status/'+ userId)
     },
     updateStatus(newStatus: string){
-        return istance.put('profile/status',{status: newStatus})
+        return instance.put('profile/status',{status: newStatus})
     }
 
 }
