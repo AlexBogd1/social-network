@@ -21,10 +21,9 @@ import style from './FormsControls.module.css'
 //     }
 // }
 
-export const FormFieldTextarea: React.FC<WrappedFieldProps> = ({ input,  meta: { touched, error, warning} }) => {
+export const FormFieldTextarea: React.FC<WrappedFieldProps & {placeholder: string}> = ({ input, placeholder,  meta: { touched, error, warning} }) => {
     return <div className={style.formControl+ ' '+ ((touched && error) ? style.error: ' ')}>
-        <textarea  {...input} />
-        {console.log(input)}
+        <textarea placeholder={placeholder}  {...input} />
         {touched && error &&<span>{error}</span>}
     </div>
 }
