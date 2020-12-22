@@ -35,7 +35,6 @@ export const setAuthenticationUserData = () => (dispatch: (action: SetUserDataAc
             }
         })
 }
-
 export const login = (email: string, password: string, rememberMe: boolean ) => (dispatch: (action: AuthActionsTypes) => void) => {
     authAPI.login(email,password,rememberMe).then(res => console.log(res));
     authAPI.auth().then(data => {
