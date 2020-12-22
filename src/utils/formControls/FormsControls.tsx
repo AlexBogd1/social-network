@@ -33,19 +33,21 @@ import style from './FormsControls.module.css'
 
 
 
-export const FormFieldTextarea: React.FC<WrappedFieldProps & {placeholder: string}> = ({ input, placeholder,  meta: { touched, error, warning} }) => {
-    return <div className={style.formControl+ ' '+ ((touched && error) ? style.error: ' ')}>
-        <textarea placeholder={placeholder}  {...input} />
-        {touched && error &&<span>{error}</span>}
+export const FormFieldTextarea: React.FC<WrappedFieldProps & {placeholder: string}> = (props) => {
+    const { input, meta, ...restProps } = props
+    return <div className={style.formControl+ ' '+ ((meta.touched && meta.error) ? style.error: ' ')}>
+        <textarea {...restProps} {...input} />
+        {meta.touched && meta.error &&<span>{meta.error}</span>}
     </div>
 }
 
 
 
-export const FormFieldInput: React.FC<WrappedFieldProps & {placeholder:string, type: string}> = ({ input,placeholder,type,  meta: { touched, error,warning} }) => {
-    return <div className={style.formControl+ ' '+ ((touched && error) ? style.error: ' ')}>
-        <input type={type} placeholder={placeholder} {...input}></input>
-        {touched && error && <span>{error}</span>}
+export const FormFieldInput: React.FC<WrappedFieldProps & {placeholder:string, type: string}> = (props) => {
+    const { input, meta, ...restProps } = props
+    return <div className={style.formControl+ ' '+ ((meta.touched && meta.error) ? style.error: ' ')}>
+        <input {...restProps} {...input}></input>
+        {meta.touched && meta.error && <span>{meta.error}</span>}
     </div>
 }
 

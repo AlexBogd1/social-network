@@ -10,25 +10,25 @@ const instance = axios.create({
 export const usersAPI = {
     getUsers(currentPage: number = 1, pageSize: number = 5) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-            .then(response => response.data)
+            .then(response => response.data);
     },
 
     setUser(userId: string) {
-        return instance.get('profile/' + userId).then(response => response.data)
+        return instance.get('profile/' + userId).then(response => response.data);
     },
 
     unFollow(id: string) {
         return instance.delete(`follow/${id}`)
-            .then(response => response.data)
+            .then(response => response.data);
     },
 
     follow(id: string) {
-        return instance.post(`follow/${id}`).then(response => response.data)
+        return instance.post(`follow/${id}`).then(response => response.data);
     },
 
     getProfile(userId: string) {
         console.warn('Obsolete method. Please use profileAPI object')
-        return profileAPI.getProfile(userId)
+        return profileAPI.getProfile(userId);
     },
 
 
@@ -37,24 +37,28 @@ export const usersAPI = {
 
 export const profileAPI = {
     getProfile(userId: string) {
-        return instance.get('profile/' + userId)
+        return instance.get('profile/' + userId);
     },
     getStatus(userId: string){
-        return instance.get('profile/status/'+ userId)
+        return instance.get('profile/status/'+ userId);
     },
     updateStatus(newStatus: string){
-        return instance.put('profile/status',{status: newStatus})
+        return instance.put('profile/status',{status: newStatus});
     }
 
 }
 
 export const authAPI = {
     auth() {
-        return instance.get(`auth/me`).then(response => response.data)
+        return instance.get(`auth/me`).then(response => response.data);
     },
 
     login(email: string, password: string, rememberMe: boolean ){
-        return instance.post('auth/login',{email, password, rememberMe})
+        return instance.post('auth/login',{email, password, rememberMe});
+    },
+
+    logout(){
+        return instance.delete(`auth/me`);
     }
 }
 

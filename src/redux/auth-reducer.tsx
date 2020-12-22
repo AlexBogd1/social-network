@@ -6,10 +6,11 @@ const LOGIN = 'LOGIN'
 
 export type SetUserDataActionType = {
     type: typeof SET_USER_DATA
-    data: { userId: number, email: string, login: string }
+    data: { userId: number| null, email: string| null, login: string| null, isAuth: boolean }
 }
 export type LoginActionType = ReturnType<typeof loginActionCreator>
-export type AuthActionsTypes = SetUserDataActionType|LoginActionType;
+export type SetAuthenticationActionType = ReturnType<typeof setAuthenticationUserData>
+export type AuthActionsTypes = SetUserDataActionType|LoginActionType|SetAuthenticationActionType;
 
 
 export const loginActionCreator = (email: string, password: string, rememberMe: boolean) => {
@@ -20,10 +21,10 @@ export const loginActionCreator = (email: string, password: string, rememberMe: 
         rememberMe
     }
 }
-export const setAuthUserData = (userId: number, email: string, login: string): SetUserDataActionType => {
+export const setAuthUserData = (userId: number| null, email: string| null, login: string| null, isAuth: boolean): SetUserDataActionType => {
     return {
         type: SET_USER_DATA,
-        data: {userId, email, login}
+        data: {userId, email, login,isAuth}
     }
 }
 export const setAuthenticationUserData = () => (dispatch: (action: SetUserDataActionType) => void) => {
@@ -31,18 +32,26 @@ export const setAuthenticationUserData = () => (dispatch: (action: SetUserDataAc
         .then(data => {
             if (data.resultCode === 0) {
                 let {id, login, email} = data.data
-                dispatch(setAuthUserData(id, email, login));
+                dispatch(setAuthUserData(id, email, login, true));
             }
         })
 }
 export const login = (email: string, password: string, rememberMe: boolean ) => (dispatch: (action: AuthActionsTypes) => void) => {
-    authAPI.login(email,password,rememberMe).then(res => console.log(res));
-    authAPI.auth().then(data => {
-        if (data.resultCode === 0) {
-            let {id, login, email} = data.data
-            dispatch(setAuthUserData(id, email, login));
+    authAPI.login(email,password,rememberMe).then(res => {
+        if(res.data.resultCode ===0){
+           dispatch(setAuthenticationUserData())
         }
-    })
+    });
+
+
+}
+export const logout = ( ) => (dispatch: (action: AuthActionsTypes) => void) => {
+    authAPI.logout().then(res => {
+        if(res.data.resultCode ===0){
+            dispatch(setAuthUserData(null, null, null, false))
+        }
+    });
+
 
 }
 
@@ -68,7 +77,7 @@ const authReducer =
                 return {
                     ...state,
                     ...action.data,
-                    isAuth: true
+
                 }
 
 

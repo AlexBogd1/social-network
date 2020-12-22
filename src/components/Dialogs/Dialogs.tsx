@@ -20,7 +20,6 @@ export type DialogsFormType = {
 let maxLengthMessage = maxLengthValidator(30)
 
 const Dialogs = (props: DialogsType) => {
-    console.log(props);
 
     let dialogsElements = props.dialogPage.dialogs
         .map(d => {

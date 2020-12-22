@@ -1,7 +1,7 @@
-import React, {useRef} from "react";
+import React from "react";
 import style from './MyPosts.module.css';
 import Post, {PostType} from "./Post/Post";
-import {InjectedFormProps, Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthValidator, required} from "../../../utils/validators/validators";
 import {FormFieldTextarea} from "../../../utils/formControls/FormsControls";
 
@@ -21,7 +21,7 @@ const MyPosts = (props: MyPostsType) => {
 
     let postsElements =
         props.posts.map(p => {
-            return <Post id={p.id} message={p.message} likesCount={p.likesCount}/>
+            return <Post key={p.id + p.message} id={p.id} message={p.message} likesCount={p.likesCount}/>
         })
 
     let addPost = (propsForm: MyPostFormType) => {

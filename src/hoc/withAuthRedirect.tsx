@@ -15,6 +15,7 @@ let mapStateToPropsForRedirect = (store: ReduxStoreType) => ({
 export function withAuthRedirect<WCP> (WrappedComponent: React.ComponentType<WCP> )  {
 
    class RedirectComponent extends React.Component<RedirectComponentType> {
+
        render() {
            const {isAuth, ...props} = this.props
 
