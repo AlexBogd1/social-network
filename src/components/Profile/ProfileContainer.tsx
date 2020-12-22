@@ -29,6 +29,7 @@ export type UserProfileType = {
 
 export type UserProfilePageType = {
     userProfile: UserProfileType | null
+    userId: number
     status: string
     setMyUserProfile: (userID: string) => void
     getStatus: (userId: string) => void
@@ -39,7 +40,9 @@ class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         let userID = this.props.match.params.userID;
-        if (!userID) {
+        if (!userID && this.props.userId) {
+            userID = ''+this.props.userId;
+        } else if(!this.props.userId){
             userID = '2';
         }
         this.props.setMyUserProfile(userID);
@@ -63,6 +66,7 @@ type PropsType = RouteComponentProps<PathParamsType> & UserProfilePageType
 
 let mapStateToProps = (store: ReduxStoreType) => ({
     userProfile: store.profilePage.userProfile,
+    userId: store.auth.userId,
     status: store.profilePage.status
 })
 

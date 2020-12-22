@@ -49,12 +49,14 @@ export const setMyUserProfile = (userID: string) => (dispatch: (action: ActionsT
         dispatch(setUserProfile(data));
     })
 }
+
 export const setStatus = (status: string)  => {
     return {
     type: SET_STATUS,
     status
 } as const
 }
+
 export const getStatus = (userId: string) => (dispatch: (action: ActionsType) => void) => {
     profileAPI.getStatus(userId).then(response => dispatch(setStatus(response.data)))
 }

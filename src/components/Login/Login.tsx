@@ -4,6 +4,8 @@ import {FormFieldInput} from "../../utils/formControls/FormsControls";
 import {maxLengthValidator, required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
+import {ReduxStoreType} from "../../redux/redux-store";
+import { Redirect } from 'react-router-dom';
 
 type FormDataType ={
     login: string
@@ -12,6 +14,7 @@ type FormDataType ={
 }
 
 type LoginCompType = {
+    isAuth: boolean
     login: (email: string, password: string, rememberMe: boolean) => void
 }
 
@@ -43,9 +46,16 @@ const Login: React.FC<LoginCompType> = (props) => {
      let  {login, password, rememberMe} = {...formData}
         props.login(login, password, rememberMe)
     }
+    if(props.isAuth) {
+       return <Redirect to={'/profile'}/>
+    }
     return <div>
         <h1>Login</h1>
         <LoginReduxForm onSubmit = {onSubmit} />
     </div>
 }
-export default connect(null, {login})(Login);
+
+const mapStateToProps = (store: ReduxStoreType) => ({
+    isAuth: store.auth.isAuth
+})
+export default connect(mapStateToProps, {login})(Login);
