@@ -1,13 +1,19 @@
 import React from 'react'
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {usersAPI} from "../../api/api";
+import {authAPI, usersAPI} from "../../api/api";
 import {FormFieldInput} from "../../utils/formControls/FormsControls";
 import {maxLengthValidator, required} from "../../utils/validators/validators";
+import {connect} from "react-redux";
+import {login} from "../../redux/auth-reducer";
 
 type FormDataType ={
     login: string
     password: string
     rememberMe: boolean
+}
+
+type LoginCompType = {
+    login: (email: string, password: string, rememberMe: boolean) => void
 }
 
 let maxLengthLoginInput = maxLengthValidator(20);
@@ -33,14 +39,14 @@ let LoginReduxForm = reduxForm<FormDataType>({form: "login"})(LoginForm)
 
 
 
-const Login = () => {
+const Login: React.FC<LoginCompType> = (props) => {
     const onSubmit = (formData: FormDataType) => {
      let  {login, password, rememberMe} = {...formData}
-        usersAPI.login(login, password, rememberMe).then(res => console.log(res))
+        props.login(login, password, rememberMe)
     }
     return <div>
         <h1>Login</h1>
         <LoginReduxForm onSubmit = {onSubmit} />
     </div>
 }
-export default Login;
+export default connect(null, {login})(Login);
