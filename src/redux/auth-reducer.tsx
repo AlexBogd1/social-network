@@ -1,4 +1,5 @@
 import {authAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const UNFOLLOW = "UNFOLLOW";
@@ -11,7 +12,7 @@ export type SetUserDataActionType = {
 export type LoginActionType = ReturnType<typeof loginActionCreator>
 export type SetAuthenticationActionType = ReturnType<typeof setAuthenticationUserData>
 export type AuthActionsTypes = SetUserDataActionType|LoginActionType|SetAuthenticationActionType;
-
+export type ValidationLoginFormType = ReturnType<typeof stopSubmit>
 
 export const loginActionCreator = (email: string, password: string, rememberMe: boolean) => {
     return {
@@ -36,10 +37,13 @@ export const setAuthenticationUserData = () => (dispatch: (action: SetUserDataAc
             }
         })
 }
-export const login = (email: string, password: string, rememberMe: boolean ) => (dispatch: (action: AuthActionsTypes) => void) => {
+export const login = (email: string, password: string, rememberMe: boolean ) => (dispatch: (action: AuthActionsTypes | ValidationLoginFormType) => void) => {
     authAPI.login(email,password,rememberMe).then(res => {
         if(res.data.resultCode ===0){
            dispatch(setAuthenticationUserData())
+        } else {
+            const message = res.data.messages.length > 0 ? res.data.messages[0]: "some error"
+            dispatch(stopSubmit('login', {_error: message}));a
         }
     });
 
