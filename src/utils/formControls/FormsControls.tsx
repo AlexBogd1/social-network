@@ -46,7 +46,7 @@ export const FormFieldTextarea: React.FC<WrappedFieldProps & {placeholder: strin
 export const FormFieldInput: React.FC<WrappedFieldProps & {placeholder:string, type: string}> = (props) => {
     const { input, meta, ...restProps } = props
     return <div className={style.formControl+ ' '+ ((meta.touched && meta.error) ? style.error: ' ')}>
-        <input {...restProps} {...input}></input>
+        <input {...restProps} {...input}/>
         {meta.touched && meta.error && <span>{meta.error}</span>}
     </div>
 }

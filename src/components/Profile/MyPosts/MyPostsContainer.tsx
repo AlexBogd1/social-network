@@ -1,13 +1,12 @@
 import {addPostActionCreator, AddPostActionType} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {ProfilePageType} from "../../../redux/state";
 import {ReduxStoreType} from "../../../redux/redux-store";
 
-type MyPostsContainerType = {
-    profilePage:  ProfilePageType
-    dispatch: (action: AddPostActionType) => void
-}
+// type MyPostsContainerType = {
+//     profilePage:  ProfilePageType
+//     dispatch: (action: AddPostActionType) => void
+// }
 
 const mapStateToProps = (store: ReduxStoreType) => {
     return {
