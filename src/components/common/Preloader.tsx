@@ -5,7 +5,7 @@ type PreloaderType = {
 
 }
 const Preloader = (props: PreloaderType) => {
-    return <img src={preLoader}/>
+    return <img alt={'loading'} src={preLoader}/>
 }
 
 export default Preloader;

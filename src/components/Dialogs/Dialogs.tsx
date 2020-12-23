@@ -1,12 +1,11 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import style from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialodsItem";
 import Message from "./Message/Message";
 import {DialogsPageType} from "../../redux/state";
-import  {InjectedFormProps, Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {FormFieldTextarea} from "../../utils/formControls/FormsControls";
 import {maxLengthValidator, required} from "../../utils/validators/validators";
-
 
 
 export type DialogsType = {

@@ -151,7 +151,6 @@ const usersReducer =
                         }
                         return u;
                     })}
-                break
 
             case UNFOLLOW:
                 debugger
@@ -165,7 +164,6 @@ const usersReducer =
                         return u;
                     })
                 }
-                break
 
             case SET_USERS:
                 return {...state, users: [...action.users]}

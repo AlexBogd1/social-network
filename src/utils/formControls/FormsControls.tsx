@@ -1,4 +1,4 @@
-import React, {InputHTMLAttributes} from 'react'
+import React from 'react'
 import {WrappedFieldProps} from "redux-form";
 import style from './FormsControls.module.css'
 

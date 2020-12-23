@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './Users.module.css'
 import userPhoto from '../../images/images.png'
 import {NavLink} from 'react-router-dom';
-import {usersAPI} from "../../api/api";
 
 type UsersForPageType = {
     users: Array<UsersFromApiType>
@@ -54,7 +53,7 @@ const Users = (props: UsersForPageType) => {
                     <span>
                         <NavLink to = {'/profile/' + u.id}>
                         <div>
-                            <img className={styles.usersPhoto} src={u.photos.small ? u.photos.small : userPhoto}/>
+                            <img alt ={'users'} className={styles.usersPhoto} src={u.photos.small ? u.photos.small : userPhoto}/>
                         </div>
                     </NavLink>
 
@@ -64,7 +63,7 @@ const Users = (props: UsersForPageType) => {
                                    props.unFollow(u.id);
                                 }
                                 }>Unfollow</button>
-                                : <button disabled={props.followingInProgress.some(id => id == u.id)} onClick={() => {
+                                : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
                                     props.follow(u.id)
                                 }}>Follow</button>}
 

@@ -2,7 +2,7 @@ import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'SET_USER_DATA';
-const UNFOLLOW = "UNFOLLOW";
+//const UNFOLLOW = "UNFOLLOW";
 const LOGIN = 'LOGIN'
 
 export type SetUserDataActionType = {
