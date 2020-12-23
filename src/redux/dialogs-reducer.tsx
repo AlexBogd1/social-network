@@ -47,7 +47,7 @@ let initialState: DialogsPageType = {
 
 const dialogsReducer =
     (state = initialState,
-     action: AddPostActionType | UpdateNewPostActionType | SendMessageActionType) => {
+     action: AddPostActionType | UpdateNewPostActionType | SendMessageActionType): DialogsPageType => {
 
         switch (action.type) {
 

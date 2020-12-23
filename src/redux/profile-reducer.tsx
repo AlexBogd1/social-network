@@ -87,7 +87,7 @@ let initialState: ProfilePageTypeForm = {
 
 const profileReducer =
     (state = initialState,
-     action: ActionsType) => {
+     action: ActionsType): ProfilePageTypeForm => {
 
         switch (action.type) {
             case ADD_POST:
@@ -100,7 +100,6 @@ const profileReducer =
                 return {
                     ...state,
                     posts: [...state.posts, newPost],
-                    messageForNewPost: "",
                 };
 
             case SET_USER_PROFILE:

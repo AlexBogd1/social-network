@@ -140,7 +140,7 @@ let initialState: UsersPageType = {
 }
 
 const usersReducer =
-    (state = initialState, action: ActionsType) => {
+    (state = initialState, action: ActionsType): UsersPageType => {
         switch (action.type) {
             case FOLLOW:
                 return {
