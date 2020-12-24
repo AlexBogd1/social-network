@@ -7,7 +7,7 @@ const sidebarReducer =
     (state: ProfilePageType,
      action: AddPostActionType
          | UpdateNewPostActionType
-         | SendMessageActionType) => {
+         | SendMessageActionType) : ProfilePageType => {
 
 
         return state;

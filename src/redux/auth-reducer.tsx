@@ -2,7 +2,6 @@ import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'SET_USER_DATA';
-//const UNFOLLOW = "UNFOLLOW";
 const LOGIN = 'LOGIN'
 
 export type SetUserDataActionType = {
@@ -59,17 +58,19 @@ export const logout = ( ) => (dispatch: (action: AuthActionsTypes) => void) => {
 
 }
 
-export type AuthType = {
-    userId: number | null,
-    email: string | null,
-    login: string | null,
-    isAuth: boolean
-}
+// export type AuthType = {
+//     userId: number | null,
+//     email: string | null,
+//     login: string | null,
+//     isAuth: boolean
+// }
 
-let initialState: AuthType = {
-    userId: null,
-    email: null,
-    login: null,
+export type AuthType = typeof initialState
+
+let initialState = {
+    userId: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
     isAuth: false
 
 }
@@ -81,10 +82,7 @@ const authReducer =
                 return {
                     ...state,
                     ...action.data,
-
                 }
-
-
             default:
                 return state
         }
