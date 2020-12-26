@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {Route, withRouter} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -9,20 +9,27 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {setAuthenticationUserData} from "./redux/auth-reducer";
-import {withAuthRedirect} from "./hoc/withAuthRedirect";
+import {ReduxStoreType} from "./redux/redux-store";
+import Preloader from "./components/common/Preloader";
+import {initializeApp} from "./redux/app-reducer";
 
 type AppComponentType = {
-    setAuthenticationUserData: () => void
+    initialized: boolean
+    initializeApp: () => void
 }
 
 class App extends React.Component<AppComponentType> {
 
     componentDidMount() {
-        this.props.setAuthenticationUserData();
+        this.props.initializeApp();
     }
 
     render() {
+        if(!this.props.initialized) {
+            return <Preloader/>
+        }
+
+
         return (
                 <div className="app-wrapper">
                     <HeaderContainer/>
@@ -44,4 +51,8 @@ class App extends React.Component<AppComponentType> {
     }
 }
 
-export default compose<React.ComponentType>(connect(null, {setAuthenticationUserData}), withRouter)(App)
+const mapStateToProps = (state:ReduxStoreType) => ({
+    initialized: state.app.initialized
+})
+
+export default compose<React.ComponentType>(connect(mapStateToProps, {initializeApp}), withRouter)(App)
