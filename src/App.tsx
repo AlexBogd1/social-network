@@ -35,15 +35,10 @@ class App extends React.Component<AppComponentType> {
                     <HeaderContainer/>
                     <NavBar/>
                     <div className="app-wrapper-content">
-                        {/*<Route path='/profile' component={Profile}/>*/}
-                        {/*<Route path='/news' component={News}/>*/}
-                        {/*<Route path='/music' component={Music}/>*/}
-                        {/*<Route path='/settings' component={Settings}/>*/}
                         <Route path="/dialogs" render={() => <DialogsContainer/>}/>
                         <Route path="/profile/:userID?" render={() => <ProfileContainer/>}/>
                         <Route path="/users" render={() => <UsersContainer/>}/>
                         <Route path="/login" render={() => <Login/>}/>
-
                     </div>
                 </div>
 

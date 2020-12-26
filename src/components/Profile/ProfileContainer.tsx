@@ -6,7 +6,7 @@ import {UsersPhotoApiType} from "../Users/UsersContainer";
 import {getStatus, setMyUserProfile, updateStatus} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
-import {withArrowFuncAuthRedirect, withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export type UserProfileContactsType = {
     facebook: string | null
@@ -44,6 +44,9 @@ class ProfileContainer extends React.Component<PropsType> {
         let userID = this.props.match.params.userID;
         if (!userID) {
             userID = ''+this.props.userId;
+            if(!userID) {
+                this.props.history.push('/login')
+            }
         }
 
         this.props.setMyUserProfile(userID);
