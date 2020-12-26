@@ -6,6 +6,7 @@ import {UsersPhotoApiType} from "../Users/UsersContainer";
 import {getStatus, setMyUserProfile, updateStatus} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
+import {withArrowFuncAuthRedirect, withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export type UserProfileContactsType = {
     facebook: string | null
@@ -74,7 +75,7 @@ let mapStateToProps = (store: ReduxStoreType) => ({
 
 
 // compose()() - принимает функции, кот оборачивают нашу комп в обр порядке и саму компоненту(т.е. наша компонента прогоняется от withAuthRedirect до посл connect и возвр HOC с результатом цепочки)
-export default compose(connect(mapStateToProps, {setMyUserProfile, getStatus, updateStatus}), withRouter)(ProfileContainer) as React.ComponentType
+export default compose(connect(mapStateToProps, {setMyUserProfile, getStatus, updateStatus}), withRouter,withAuthRedirect)(ProfileContainer) as React.ComponentType
 
 
 
