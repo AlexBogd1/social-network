@@ -9,14 +9,11 @@ type HeaderContainerType = {
     isAuth: boolean
     login: string|null
     logout: () => void
-    setAuthenticationUserData: () => void
 }
 
 class HeaderContainer extends React.Component<HeaderContainerType> {
 
-    componentDidMount() {
-        setAuthenticationUserData();
-    }
+
 
 
     render(){
@@ -28,4 +25,4 @@ const mapStateToProps = (state: ReduxStoreType) => ({
         isAuth: state.auth.isAuth,
         login:  state.auth.login,
 })
-export default connect(mapStateToProps, {setAuthenticationUserData, logout})(HeaderContainer);
+export default connect(mapStateToProps, { logout})(HeaderContainer);

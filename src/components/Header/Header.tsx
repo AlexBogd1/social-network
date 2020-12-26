@@ -6,7 +6,6 @@ import img from './../../../public/logo512.png'
 type HeaderType = {
     isAuth: boolean
     login: string | null
-    setAuthenticationUserData: () => void
     logout: () => void
 }
 
