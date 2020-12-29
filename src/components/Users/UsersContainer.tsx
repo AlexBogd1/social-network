@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {ReduxStoreType} from "../../redux/redux-store";
 import {
     followUser,
-    getUsers,
+    requestUsers,
     setCurrentPage,
     toggleIsFollowingInProgress,
     unFollowUser
@@ -12,6 +12,14 @@ import Users from "./Users";
 import Preloader from '../common/Preloader';
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/user-selectors";
 
 
 type UsersForPageType = {
@@ -69,12 +77,12 @@ class UsersContainerComponent extends React.Component<UsersForPageType> {
 
 const mapStateToProps = (store: ReduxStoreType) => {
     return {
-        users: store.usersPage.users,
-        pageSize: store.usersPage.pageSize,
-        totalUsersCount: store.usersPage.totalUsersCount,
-        currentPage: store.usersPage.currentPage,
-        isFetching: store.usersPage.isFetching,
-        followingInProgress: store.usersPage.followingInProgress
+        users: getUsers(store),
+        pageSize: getPageSize(store),
+        totalUsersCount: getTotalUsersCount(store),
+        currentPage: getCurrentPage(store),
+        isFetching: getIsFetching(store),
+        followingInProgress: getFollowingInProgress(store)
     }
 
 }
@@ -82,7 +90,7 @@ const mapStateToProps = (store: ReduxStoreType) => {
 
 // compose()() - принимает функции, кот оборачивают нашу комп в обр порядке и саму компоненту(т.е. наша компонента прогоняется от withAuthRedirect до посл connect и возвр HOC с результатом цепочки)
 export default compose(withAuthRedirect,
-    connect(mapStateToProps, {followUser, unFollowUser, toggleIsFollowingInProgress, setCurrentPage, getUsers})
+    connect(mapStateToProps, {followUser, unFollowUser, toggleIsFollowingInProgress, setCurrentPage, getUsers: requestUsers})
     )(UsersContainerComponent) as React.ComponentType
 
 
