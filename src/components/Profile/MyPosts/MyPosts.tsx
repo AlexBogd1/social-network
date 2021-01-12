@@ -17,8 +17,8 @@ export type MyPostFormType = {
 
 let maxLengthVal = maxLengthValidator(15)
 
-const MyPosts = (props: MyPostsType) => {
-
+const MyPosts = React.memo((props: MyPostsType) => {
+    console.log("render")
     let postsElements =
         props.posts.map(p => {
             return <Post key={p.id + p.message} id={p.id} message={p.message} likesCount={p.likesCount}/>
@@ -39,7 +39,7 @@ const MyPosts = (props: MyPostsType) => {
             </div>
         </div>
     )
-}
+})
 
 
 
