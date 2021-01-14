@@ -1,7 +1,5 @@
 import React from 'react';
-import styles from './Users.module.css'
-import userPhoto from '../../images/images.png'
-import {NavLink} from 'react-router-dom';
+import styles from './Paginator.module.css'
 
 export type PaginatorType = {
     totalUsersCount: number

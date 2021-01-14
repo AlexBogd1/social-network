@@ -2,7 +2,9 @@ import React from 'react';
 import styles from './Users.module.css'
 import userPhoto from '../../images/images.png'
 import {NavLink} from 'react-router-dom';
-import Paginator from './Paginator'
+import Paginator from '../common/Paginator/Paginator'
+import User from './User'
+
 
 type UsersForPageType = {
     users: Array<UsersFromApiType>
@@ -33,37 +35,7 @@ const Users = (props: UsersForPageType) => {
         
         <Paginator currentPage={props.currentPage} pageSize={props.pageSize} totalUsersCount={props.totalUsersCount} onPageChanged={props.onPageChanged} />
         {
-            props.users.map(u => <div key={u.id}>
-                    <span>
-                        <NavLink to = {'/profile/' + u.id}>
-                        <div>
-                            <img alt ={'users'} className={styles.usersPhoto} src={u.photos.small ? u.photos.small : userPhoto}/>
-                        </div>
-                    </NavLink>
-
-                        <div>
-                            {u.followed
-                                ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() =>{
-                                   props.unFollow(u.id);
-                                }
-                                }>Unfollow</button>
-                                : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                    props.follow(u.id)
-                                }}>Follow</button>}
-
-                        </div>
-                    </span>
-                <span>
-                        <span>
-                            <div>{u.name}</div>
-                            <div>{u.name}</div>
-                        </span>
-                        <span>
-                            <div>{'Mos'}</div>
-                            <div>{'Mins'}</div>
-                        </span>
-                    </span>
-            </div>)
+            props.users.map(u => <User name={u.name} id={u.id} photos={u.photos} followed={u.followed} follow={props.follow} unFollow={props.unFollow} followingInProgress={props.followingInProgress} />)
         }
     </div>)
 
