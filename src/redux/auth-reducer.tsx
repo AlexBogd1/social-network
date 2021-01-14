@@ -1,8 +1,8 @@
 import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
-const SET_USER_DATA = 'SET_USER_DATA';
-const LOGIN = 'LOGIN'
+const SET_USER_DATA = 'redux/auth-reducer/SET_USER_DATA';
+const LOGIN = 'redux/auth-reducer/LOGIN'
 
 export type SetUserDataActionType = {
     type: typeof SET_USER_DATA
@@ -21,6 +21,22 @@ export const loginActionCreator = (email: string, password: string, rememberMe: 
         rememberMe
     }
 }
+
+
+const authReducer =
+    (state = initialState, action: SetUserDataActionType): AuthType => {
+        switch (action.type) {
+            case SET_USER_DATA:
+                return {
+                    ...state,
+                    ...action.data,
+                }
+            default:
+                return state
+        }
+    }
+
+
 export const setAuthUserData = (userId: number| null, email: string| null, login: string| null, isAuth: boolean): SetUserDataActionType => {
     return {
         type: SET_USER_DATA,
@@ -75,16 +91,5 @@ let initialState = {
 
 }
 
-const authReducer =
-    (state = initialState, action: SetUserDataActionType): AuthType => {
-        switch (action.type) {
-            case SET_USER_DATA:
-                return {
-                    ...state,
-                    ...action.data,
-                }
-            default:
-                return state
-        }
-    }
+
 export default authReducer;

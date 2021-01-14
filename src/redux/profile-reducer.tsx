@@ -3,7 +3,7 @@ import {SendMessageActionType} from "./dialogs-reducer";
 import {UserProfileType} from "../components/Profile/ProfileContainer";
 import {profileAPI, usersAPI} from "../api/api";
 
-type ProfilePageTypeForm = {
+export type ProfilePageTypeForm = {
     posts: Array<PostType>
     userProfile: UserProfileType | null
     status: string
@@ -42,8 +42,9 @@ export const setUserProfile = (userProfile: UserProfileType): SetUserProfileType
     return {
         type: SET_USER_PROFILE,
         userProfile
-    }
+    } as const
 }
+
 export const setMyUserProfile = (userID: string) => (dispatch: (action: ActionsType) => void) => {
     usersAPI.setUser(userID).then(data => {
         dispatch(setUserProfile(data));
@@ -85,7 +86,7 @@ let initialState: ProfilePageTypeForm = {
     status: ''
 }
 
-const profileReducer =
+export const profileReducer =
     (state = initialState,
      action: ActionsType): ProfilePageTypeForm => {
 
