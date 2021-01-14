@@ -50,12 +50,14 @@ export type UsersFromApiType = {
 class UsersContainerComponent extends React.Component<UsersForPageType> {
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        const {currentPage, pageSize } = this.props;
+        this.props.getUsers(currentPage, pageSize);
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber);
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        const {currentPage, pageSize } = this.props;
+        this.props.getUsers(currentPage, pageSize);
     }
 
     render() {
