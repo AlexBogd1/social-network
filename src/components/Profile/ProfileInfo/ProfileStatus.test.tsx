@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { create } from 'react-test-renderer'
+import { create,ReactTestInstance } from 'react-test-renderer'
 import ProfileStatus from './ProfileStatus';
 
 describe("ProfileStatus component", () => {
@@ -40,6 +40,32 @@ describe("ProfileStatus component", () => {
         if (root) { 
             let span = root.findByType('span');
             expect(span.children[0]).toEqual('Hello');
+        }
+
+    });
+
+    test("after double click on span input should be displayed", () => {
+        const component = create(<ProfileStatus status='Hello' updateStatus={() => { }} />,);
+        const root = component.root;
+        if (root) { 
+            let span = root.findByType('span');
+            span.props.onDoubleClick();
+            let input = root.findByType('input');
+            expect(input).not.toBeNull();
+            expect(input.props.value).toBe('Hello');
+        }
+
+    });
+
+    test("callback should be called", () => {
+        const mockCallback = jest.fn();
+        const component = create(<ProfileStatus status='Hello' updateStatus={mockCallback} />,);
+        type ProfType = Return
+        const instance  = component.getInstance() as (ReactTestInstance & {deactivateEditMode: () => void} | null) ;
+        if (instance) { 
+
+            instance.deactivateEditMode();
+            expect(mockCallback.mock.calls.length).toBe(1);
         }
 
     });
