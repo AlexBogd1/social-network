@@ -60,7 +60,6 @@ describe("ProfileStatus component", () => {
     test("callback should be called", () => {
         const mockCallback = jest.fn();
         const component = create(<ProfileStatus status='Hello' updateStatus={mockCallback} />,);
-        type ProfType = Return
         const instance  = component.getInstance() as (ReactTestInstance & {deactivateEditMode: () => void} | null) ;
         if (instance) { 
 
