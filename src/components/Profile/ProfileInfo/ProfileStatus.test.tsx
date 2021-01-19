@@ -62,7 +62,6 @@ describe("ProfileStatus component", () => {
         const component = create(<ProfileStatus status='Hello' updateStatus={mockCallback} />,);
         const instance  = component.getInstance() as (ReactTestInstance & {deactivateEditMode: () => void} | null) ;
         if (instance) { 
-
             instance.deactivateEditMode();
             expect(mockCallback.mock.calls.length).toBe(1);
         }

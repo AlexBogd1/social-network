@@ -60,7 +60,7 @@ export type UsersPageType = {
 
 let initialState: UsersPageType = {
     users: [],
-    pageSize: 7,
+    pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
@@ -104,7 +104,7 @@ const usersReducer =
                 return {
                     ...state,
                     currentPage: action.pageNumber
-                }
+                } 
 
             case SET_TOTAL_COUNT:
                 return {
