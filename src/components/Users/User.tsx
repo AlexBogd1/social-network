@@ -12,7 +12,6 @@ const User = (props:UserComponentType )=> {
     
     return (
         
-      
        <div key={props.id}>
                     <span>
                         <NavLink to = {'/profile/' + props.id}>
