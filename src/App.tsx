@@ -40,7 +40,7 @@ class App extends React.Component<AppComponentType> {
                         <DialogsContainer />
                     </Suspense>} />
                     <Route path="/profile/:userID?" render={() => <Suspense fallback={<Preloader />}>
-                        <ProfileContainer />
+                    <ProfileContainer />
                     </Suspense>} />
                     <Route path="/users" render={() => <UsersContainer />} />
                     <Route path="/login" render={() => <Login />} />
