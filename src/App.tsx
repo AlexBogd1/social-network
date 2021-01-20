@@ -2,9 +2,7 @@ import React from "react";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import {Route, withRouter} from "react-router-dom";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {compose} from "redux";
@@ -17,6 +15,9 @@ type AppComponentType = {
     initialized: boolean
     initializeApp: () => void
 }
+
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 
 class App extends React.Component<AppComponentType> {
 
