@@ -4,7 +4,7 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {UserProfilePageType} from "./ProfileContainer";
 
 
-const Profile = (props: UserProfilePageType) => {
+const Profile = (props: UserProfilePageType & {isOwner: boolean}) => {
 
     return (
         <div>

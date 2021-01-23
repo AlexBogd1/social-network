@@ -40,7 +40,9 @@ export type UserProfilePageType = {
 
 class ProfileContainer extends React.Component<PropsType> {
 
-    componentDidMount() {
+    
+    
+    refreshProfile(){
         let userID = this.props.match.params.userID;
         if (!userID) {
             userID = ''+this.props.userId;
@@ -53,9 +55,19 @@ class ProfileContainer extends React.Component<PropsType> {
         this.props.getStatus(userID)
     }
 
+    componentDidMount() {
+       this.refreshProfile();
+    }
+
+    componentDidUpdate(prevProps:PropsType) {
+        if(this.props.match.params.userID !== prevProps.match.params.userID){
+            this.refreshProfile();
+        }
+    }
+
     render() {
         return (
-            <Profile {...this.props} />
+            <Profile {...this.props} isOwner = {!!this.props.match.params.userID}/>
         )
     }
 
