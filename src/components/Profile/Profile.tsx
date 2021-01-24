@@ -4,13 +4,16 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {UserProfilePageType} from "./ProfileContainer";
 
 
-const Profile = (props: UserProfilePageType & {isOwner: boolean}) => {
-
+const Profile = (props: UserProfilePageType & {isOwner: boolean, savePhoto: (e: File) => void}) => {
+    
     return (
         <div>
             <ProfileInfo profile = {props.userProfile}
                          status={props.status}
-                         updateStatus={props.updateStatus}/>
+                         updateStatus={props.updateStatus}
+                         isOwner = {props.isOwner}
+                         savePhoto = {props.savePhoto}
+                         />
             <MyPostsContainer />
         </div>
     )

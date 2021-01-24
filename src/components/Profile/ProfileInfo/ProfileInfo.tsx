@@ -12,22 +12,36 @@ type ProfileInfoType = {
     updateStatus: (newStatus: string) => void
 }
 
-const ProfileInfo = (props: ProfileInfoType) => {
+const ProfileInfo = (props: ProfileInfoType & {isOwner: boolean, savePhoto: (e: File) => void}) => {
 
     if (!props.profile) {
         return <Preloader/>
     }
-    console.log(props.profile)
+    
+    const onMainPhotoSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files){
+            props.savePhoto(e.target.files[0])
+        }
+        
+    }
+    let profile = '';
+    
+    if(props.profile.photos) {
+        profile = props.profile.photos.large;
+    }
+
+
+    
     return (
         <div>
 
             <div className={style.profile}>
                 <img
-                    src={props.profile?.photos.large || UserPhoto}
+                    src={profile || UserPhoto}
                     alt={'profile'}
                     className = {style.avatar}
                 />
-                {/*<ProfileStatus status={props.status} updateStatus={props.updateStatus}/>*/}
+                {!props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
                 <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
 
                 <div>
@@ -36,10 +50,10 @@ const ProfileInfo = (props: ProfileInfoType) => {
                 <div>
                     My full name: {props.profile?.fullName}
                 </div>
-                <div>
+                {/* <div>
                     My facebook: {props.profile?.contacts.facebook}<br/>
                     My instagram: {props.profile?.contacts.instagram}
-                </div>
+                </div> */}
             </div>
         </div>
     )

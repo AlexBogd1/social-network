@@ -2,11 +2,13 @@ import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {SendMessageActionType} from "./dialogs-reducer";
 import {UserProfileType} from "../components/Profile/ProfileContainer";
 import {profileAPI, usersAPI} from "../api/api";
+import { UsersPhotoApiType } from "../components/Users/UsersContainer";
 
 export type ProfilePageTypeForm = {
     posts: Array<PostType>
     userProfile: UserProfileType | null
     status: string
+    
 }
 
 export type AddPostActionType = {
@@ -26,10 +28,16 @@ export type SetStatusType = {
     status: string
 }
 
+export type SetPhotosSuccessType = {
+    type: typeof SAVE_PHOTO_SUCCESS
+    photos: UsersPhotoApiType
+}
+
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = "SET-USER-PROFILE";
 const SET_STATUS = "SET-STATUS";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const SAVE_PHOTO_SUCCESS = "SAVE-PHOTO-SUCCESS"
 
 export const addPostActionCreator = (post: string): AddPostActionType => {
     return {
@@ -45,6 +53,8 @@ export const setUserProfile = (userProfile: UserProfileType): SetUserProfileType
     } as const
 }
 
+
+
 export const setMyUserProfile = (userID: string) => (dispatch: (action: ActionsType) => void) => {
     usersAPI.setUser(userID).then(data => {
         dispatch(setUserProfile(data));
@@ -58,9 +68,15 @@ export const setStatus = (status: string)  => {
 } as const
 }
 
+export const savePhotoSuccess = (photos: UsersPhotoApiType) => ( {
+    type: SAVE_PHOTO_SUCCESS,
+    photos  
+  } as const)
+
 export const getStatus = (userId: string) => (dispatch: (action: ActionsType) => void) => {
     profileAPI.getStatus(userId).then(response => dispatch(setStatus(response.data)))
 }
+
 export const updateStatus = (newStatus: string) => (dispatch: (action: ActionsType) => void) =>{
     profileAPI.updateStatus(newStatus).then(
         response => {
@@ -70,11 +86,22 @@ export const updateStatus = (newStatus: string) => (dispatch: (action: ActionsTy
         })
 }
 
+export const savePhoto = (photo: File) => async (dispatch: (action: ActionsType) => void) =>{
+    let response = await profileAPI.savePhoto(photo)
+    
+   
+            if(response.data.resultCode === 0){
+                dispatch(savePhotoSuccess(response.data.data.photos))
+            }
+        
+}
+
 
 type ActionsType = AddPostActionType
     | SendMessageActionType
     | SetUserProfileType
     | SetStatusType
+    | SetPhotosSuccessType
 
 let initialState: ProfilePageTypeForm = {
     posts: [
@@ -83,7 +110,8 @@ let initialState: ProfilePageTypeForm = {
         {id: 3, message: 'It is my second post', likesCount: 15},
     ],
     userProfile: null,
-    status: ''
+    status: '',
+   
 }
 
 export const profileReducer =
@@ -105,6 +133,10 @@ export const profileReducer =
 
             case SET_USER_PROFILE:
                 return {...state, userProfile: action.userProfile};
+             
+                case SAVE_PHOTO_SUCCESS:
+                    return {...state, userProfile: {...state.userProfile, photos: action.photos}};
+        
 
             case SET_STATUS:
                 return {
