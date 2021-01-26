@@ -1,10 +1,10 @@
 import React from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {UserProfilePageType} from "./ProfileContainer";
+import {UserProfilePageType,UserProfileType} from "./ProfileContainer";
 
 
-const Profile = (props: UserProfilePageType & {isOwner: boolean, savePhoto: (e: File) => void}) => {
+const Profile = (props: UserProfilePageType & {isOwner: boolean, savePhoto: (e: File) => void, saveProfile:(profile: UserProfileType)=>void} ) => {
     
     return (
         <div>
@@ -12,6 +12,7 @@ const Profile = (props: UserProfilePageType & {isOwner: boolean, savePhoto: (e: 
                          status={props.status}
                          updateStatus={props.updateStatus}
                          isOwner = {props.isOwner}
+                         saveProfile ={props.saveProfile}
                          savePhoto = {props.savePhoto}
                          />
             <MyPostsContainer />

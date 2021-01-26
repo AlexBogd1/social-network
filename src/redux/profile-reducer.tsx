@@ -1,6 +1,6 @@
 import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {SendMessageActionType} from "./dialogs-reducer";
-import {UserProfileType} from "../components/Profile/ProfileContainer";
+import { UserProfileType} from "../components/Profile/ProfileContainer";
 import {profileAPI, usersAPI} from "../api/api";
 import { UsersPhotoApiType } from "../components/Users/UsersContainer";
 
@@ -86,15 +86,22 @@ export const updateStatus = (newStatus: string) => (dispatch: (action: ActionsTy
         })
 }
 
-export const savePhoto = (photo: File) => async (dispatch: (action: ActionsType) => void) =>{
-    let response = await profileAPI.savePhoto(photo)
-    
-   
+
+export const saveProfile = (profile: UserProfileType) => async (dispatch: (action: ActionsType) => void) =>{
+    let response = await profileAPI.saveProfile(profile)
             if(response.data.resultCode === 0){
                 dispatch(savePhotoSuccess(response.data.data.photos))
-            }
-        
+            }    
 }
+
+export const savePhoto = (photo: File) => async (dispatch: (action: ActionsType) => void) =>{
+    let response = await profileAPI.savePhoto(photo)
+            if(response.data.resultCode === 0){
+                dispatch(savePhotoSuccess(response.data.data.photos))
+            }    
+}
+
+
 
 
 type ActionsType = AddPostActionType

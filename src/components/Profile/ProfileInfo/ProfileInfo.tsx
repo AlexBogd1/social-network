@@ -10,6 +10,7 @@ import ProfileDataForm, {ProfileFormDataType} from "./ProfileDataForm";
 type ProfileInfoType = {
     profile: UserProfileType | null
     status: string
+    saveProfile: (profile:UserProfileType) => void
     updateStatus: (newStatus: string) => void
 }
 
@@ -35,7 +36,7 @@ const ProfileInfo = (props: ProfileInfoType & { isOwner: boolean, savePhoto: (e:
 
     const onSubmit = (formData: ProfileFormDataType) => {
         let {fullName, lookingForAJob, aboutMe, lookingForAJobDescription} = {...formData}
-        console.log(fullName);
+        props.saveProfile(formData)
     }
 
     return (

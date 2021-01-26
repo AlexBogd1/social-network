@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {ReduxStoreType} from "../../redux/redux-store";
 import {UsersPhotoApiType} from "../Users/UsersContainer";
-import {getStatus, setMyUserProfile, updateStatus,savePhoto} from "../../redux/profile-reducer";
+import {getStatus, setMyUserProfile, updateStatus,savePhoto,saveProfile} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
@@ -38,7 +38,7 @@ export type UserProfilePageType = {
     updateStatus: (newStatus: string) => void
 }
 
-class ProfileContainer extends React.Component<PropsType & {savePhoto: (photo: File) => void}> {
+class ProfileContainer extends React.Component<PropsType & {savePhoto: (photo: File) => void, saveProfile:(profile: UserProfileType)=>void}> {
 
     
     
@@ -67,7 +67,7 @@ class ProfileContainer extends React.Component<PropsType & {savePhoto: (photo: F
 
     render() {
         return (
-            <Profile {...this.props} isOwner = {!this.props.match.params.userID} savePhoto={this.props.savePhoto}/>
+            <Profile {...this.props} isOwner = {!this.props.match.params.userID} savePhoto={this.props.savePhoto} saveProfile={this.props.saveProfile}/>
         )
     }
 
@@ -89,7 +89,7 @@ let mapStateToProps = (store: ReduxStoreType) => ({
 
 
 // compose()() - принимает функции, кот оборачивают нашу комп в обр порядке и саму компоненту(т.е. наша компонента прогоняется от withAuthRedirect до посл connect и возвр HOC с результатом цепочки)
-export default compose(connect(mapStateToProps, {setMyUserProfile, getStatus, updateStatus, savePhoto}), withRouter,withAuthRedirect)(ProfileContainer) as React.ComponentType
+export default compose(connect(mapStateToProps, {setMyUserProfile, getStatus, updateStatus, savePhoto, saveProfile}), withRouter,withAuthRedirect)(ProfileContainer) as React.ComponentType
 
 
 
