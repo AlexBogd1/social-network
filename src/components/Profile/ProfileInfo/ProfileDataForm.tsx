@@ -1,9 +1,11 @@
-import { profile } from 'console'
+
 import React from 'react'
+import style from './ProfileInfo.module.css';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 import { FormFieldInput, FormFieldTextarea } from '../../../utils/formControls/FormsControls'
 import { UserProfileContactsType, UserProfileType } from "../ProfileContainer"
 import { Contact } from './../ProfileInfo/ProfileInfo'
+import { count } from 'console';
 
 export type ProfileFormDataType = {
     fullName: string
@@ -37,7 +39,9 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileFormDataType, { profile
             <b>Contacts</b>: {props.profile.contacts && Object.keys(props.profile.contacts)
                 .map(cont => {
                     const a = props.profile?.contacts ? props.profile.contacts[cont as keyof UserProfileContactsType] : ''
-                    return <Contact key={cont} contactTitle={cont} contactValue={a} />
+                    return <div className={style.contacts}>
+                            <b>{cont}: <div><Field placeholder={cont} name={"contacts."+cont} validate={[]} component={FormFieldInput} /></div></b>
+                    </div>
                 })}
         </div>
 
