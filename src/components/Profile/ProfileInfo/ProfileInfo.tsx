@@ -4,7 +4,7 @@ import { UserProfileContactsType, UserProfileType } from "../ProfileContainer";
 import Preloader from "../../common/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import UserPhoto from '../../../images/images.png'
-import ProfileDataForm from "./ProfileDataForm";
+import ProfileDataForm, {ProfileFormDataType} from "./ProfileDataForm";
 
 
 type ProfileInfoType = {
@@ -33,6 +33,11 @@ const ProfileInfo = (props: ProfileInfoType & { isOwner: boolean, savePhoto: (e:
         profile = props.profile.photos.large;
     }
 
+    const onSubmit = (formData: ProfileFormDataType) => {
+        let {fullName, lookingForAJob, aboutMe, lookingForAJobDescription} = {...formData}
+        console.log(fullName);
+    }
+
     return (
         <div>
 
@@ -44,7 +49,7 @@ const ProfileInfo = (props: ProfileInfoType & { isOwner: boolean, savePhoto: (e:
                 />
                 {props.isOwner && <input type="file" onChange={onMainPhotoSelected} />}
                 <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />
-                {!editMode ? <ProfileData profile ={props.profile} isOwner={props.isOwner} goToEditMode = {() => {setEditMode(true)}}/> : <ProfileDataForm profile={props.profile}  /> }
+                {!editMode ? <ProfileData profile ={props.profile} isOwner={props.isOwner} goToEditMode = {() => {setEditMode(true)}}/> : <ProfileDataForm onSubmit={onSubmit} profile={props.profile}  /> }
                 
             </div>
         </div>
@@ -80,8 +85,6 @@ const ProfileData = ({profile, isOwner, goToEditMode}: {profile: UserProfileType
 
 </div>
 }
-
-
 
 export const Contact = ({ contactTitle, contactValue }: { contactTitle: string, contactValue: string | null }) => {
     return <div className={style.contacts}><b>{contactTitle}</b>: {contactValue} </div>

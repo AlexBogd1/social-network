@@ -5,7 +5,7 @@ import { FormFieldInput, FormFieldTextarea } from '../../../utils/formControls/F
 import { UserProfileContactsType, UserProfileType } from "../ProfileContainer"
 import { Contact } from './../ProfileInfo/ProfileInfo'
 
-type ProfileFormDataType = {
+export type ProfileFormDataType = {
     fullName: string
     lookingForAJob: boolean
     aboutMe: string
@@ -16,7 +16,7 @@ type ProfileFormDataType = {
 const ProfileDataForm: React.FC<InjectedFormProps<ProfileFormDataType, { profile: UserProfileType }> & { profile: UserProfileType }> = (props) => {
 
     return <form onSubmit={props.handleSubmit}>
-        <div><button onClick={() => { }} >save</button></div>
+        <div><button>save</button></div>
         <div>
             Full name: <Field placeholder="Full Name" name="fullName" validate={[]} component={FormFieldInput} />
         </div>
