@@ -4,6 +4,7 @@ import { UserProfileContactsType, UserProfileType } from "../ProfileContainer";
 import Preloader from "../../common/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import UserPhoto from '../../../images/images.png'
+import ProfileDataForm from "./ProfileDataForm";
 
 
 type ProfileInfoType = {
@@ -81,33 +82,7 @@ const ProfileData = ({profile, isOwner, goToEditMode}: {profile: UserProfileType
 
 </div>
 }
-const ProfileDataForm = ({profile}: {profile: UserProfileType }) => {
-    return  <div>
-{/* 
-    <div>
-        Full name: {profile.fullName}
-    </div>
-    <div>
-        <b>Looking for a job</b>: {profile.lookingForAJob ? 'yes' : 'no'}
-    </div>
-    <div>
-        About Me: {profile.aboutMe}
-    </div>
-    {profile.lookingForAJob &&
-        <div>
-            <b>My professional skills</b>: {profile.lookingForAJobDescription}
-        </div>
-    }
-    <div>
-        <b>Contacts</b>: {profile.contacts && Object.keys(profile.contacts)
-            .map(cont => {
-                const a = profile?.contacts ? profile.contacts[cont as keyof UserProfileContactsType] : ''
-                return <Contact contactTitle={cont} contactValue={a} />
-            })}
-    </div> */}
 
-</div>
-}
 
 
 const Contact = ({ contactTitle, contactValue }: { contactTitle: string, contactValue: string | null }) => {
