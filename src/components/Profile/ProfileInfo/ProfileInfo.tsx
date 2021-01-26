@@ -33,8 +33,6 @@ const ProfileInfo = (props: ProfileInfoType & { isOwner: boolean, savePhoto: (e:
         profile = props.profile.photos.large;
     }
 
-    const contacts = props.profile.contacts ? props.profile.contacts : null;
-
     return (
         <div>
 
@@ -85,7 +83,7 @@ const ProfileData = ({profile, isOwner, goToEditMode}: {profile: UserProfileType
 
 
 
-const Contact = ({ contactTitle, contactValue }: { contactTitle: string, contactValue: string | null }) => {
+export const Contact = ({ contactTitle, contactValue }: { contactTitle: string, contactValue: string | null }) => {
     return <div className={style.contacts}><b>{contactTitle}</b>: {contactValue} </div>
 }
 
