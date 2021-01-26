@@ -37,7 +37,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileFormDataType, { profile
             <b>Contacts</b>: {props.profile.contacts && Object.keys(props.profile.contacts)
                 .map(cont => {
                     const a = props.profile?.contacts ? props.profile.contacts[cont as keyof UserProfileContactsType] : ''
-                    return <Contact contactTitle={cont} contactValue={a} />
+                    return <Contact key={cont} contactTitle={cont} contactValue={a} />
                 })}
         </div>
 
