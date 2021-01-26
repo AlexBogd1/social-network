@@ -67,7 +67,7 @@ class ProfileContainer extends React.Component<PropsType & {savePhoto: (photo: F
 
     render() {
         return (
-            <Profile {...this.props} isOwner = {!!this.props.match.params.userID} savePhoto={this.props.savePhoto}/>
+            <Profile {...this.props} isOwner = {!this.props.match.params.userID} savePhoto={this.props.savePhoto}/>
         )
     }
 
