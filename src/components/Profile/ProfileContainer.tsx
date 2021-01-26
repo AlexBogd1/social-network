@@ -25,7 +25,7 @@ export type UserProfileType = {
     lookingForAJob?: boolean
     lookingForAJobDescription?: string
     photos?: UsersPhotoApiType
-    userId?: number
+    userId?: string
 }
 
 export type UserProfilePageType = {

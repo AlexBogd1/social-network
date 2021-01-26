@@ -50,7 +50,7 @@ const ProfileInfo = (props: ProfileInfoType & { isOwner: boolean, savePhoto: (e:
                 />
                 {props.isOwner && <input type="file" onChange={onMainPhotoSelected} />}
                 <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />
-                {!editMode ? <ProfileData profile ={props.profile} isOwner={props.isOwner} goToEditMode = {() => {setEditMode(true)}}/> : <ProfileDataForm onSubmit={onSubmit} profile={props.profile}  /> }
+                {!editMode ? <ProfileData profile ={props.profile} isOwner={props.isOwner} goToEditMode = {() => {setEditMode(true)}}/> : <ProfileDataForm initialValues={props.profile} onSubmit={onSubmit} profile={props.profile}  /> }
                 
             </div>
         </div>

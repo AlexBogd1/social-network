@@ -45,28 +45,24 @@ export const addPostActionCreator = (post: string): AddPostActionType => {
         post
     }
 }
-
 export const setUserProfile = (userProfile: UserProfileType): SetUserProfileType => {
     return {
         type: SET_USER_PROFILE,
         userProfile
     } as const
 }
-
-
-
 export const setMyUserProfile = (userID: string) => (dispatch: (action: ActionsType) => void) => {
     usersAPI.setUser(userID).then(data => {
         dispatch(setUserProfile(data));
     })
 }
-
 export const setStatus = (status: string)  => {
     return {
     type: SET_STATUS,
     status
 } as const
 }
+
 
 export const savePhotoSuccess = (photos: UsersPhotoApiType) => ( {
     type: SAVE_PHOTO_SUCCESS,
@@ -87,10 +83,15 @@ export const updateStatus = (newStatus: string) => (dispatch: (action: ActionsTy
 }
 
 
-export const saveProfile = (profile: UserProfileType) => async (dispatch: (action: ActionsType) => void) =>{
+export const saveProfile = (profile: UserProfileType) => async (dispatch: (action: ActionsType) => void , getState: () => ProfilePageTypeForm ) =>{
+    const userId = '4'
+    if(getState().userProfile?.userId) {
+        const userId = getState().userProfile?.userId
+    } 
+   
     let response = await profileAPI.saveProfile(profile)
             if(response.data.resultCode === 0){
-                dispatch(savePhotoSuccess(response.data.data.photos))
+               getStatus(userId)
             }    
 }
 
